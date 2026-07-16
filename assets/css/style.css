@@ -223,7 +223,7 @@ h1, h2, h3, h4 { font-family: var(--font-heading); }
   transition: var(--transition); border: 1px solid transparent;
 }
 .prod-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); border-color: var(--gold); }
-.prod-card-img { width: 100%; aspect-ratio: 1; object-fit: cover; }
+.prod-card-img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
 .prod-body { padding: 20px; }
 .prod-cat { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 4px; }
 .prod-name { font-size: 15px; font-weight: 600; margin-bottom: 4px; display: block; color: var(--text); }

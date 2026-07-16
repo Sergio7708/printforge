@@ -6,7 +6,7 @@ let products = [], cart = JSON.parse(localStorage.getItem('pf_cart') || '[]');
 let filter = 'all', page = 1, PP = 12;
 
 function imgUrl(p) {
-  return p.id <= 30 ? '/printforge/assets/photos/' + p.id + '.jpg' : API + p.photo_url;
+  return API + p.photo_url;
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
