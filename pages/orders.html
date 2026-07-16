@@ -1,66 +1,48 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Заказы — PrintForge</title>
-  <link rel="canonical" href="https://sergio7708.github.io/printforge/pages/orders.html">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&family=Old+Standard+TT:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/printforge/assets/css/style.css">
-  <style>
-    .order-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 24px; margin-bottom: 16px; }
-    .order-card h3 { color: var(--gold); font-size: 16px; margin-bottom: 8px; }
-    .order-card .meta { color: var(--text-dim); font-size: 13px; margin-bottom: 8px; }
-    .order-card .items { color: var(--text-muted); font-size: 14px; line-height: 1.7; margin-bottom: 8px; }
-    .order-card .total { color: var(--gold); font-size: 18px; font-family: var(--font-display); }
-    .order-card .customer { border-top: 1px solid var(--card-border); padding-top: 8px; margin-top: 8px; font-size: 14px; color: var(--text-muted); }
-    .order-card .customer strong { color: var(--text); }
-    .empty-orders { text-align: center; padding: 80px 20px; color: var(--text-dim); }
-    .empty-orders h2 { font-size: 24px; color: var(--gold); margin-bottom: 12px; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Заказы — PrintForge</title>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<link rel="stylesheet" href="/printforge/assets/css/style.css">
 </head>
 <body>
 
 <header class="header" id="header">
   <div class="container">
-    <a href="/printforge/" class="header-logo">PrintForge</a>
+    <a href="/printforge/" class="header-logo">Print<span>Forge</span></a>
     <nav class="header-nav">
       <a href="/printforge/">Главная</a>
       <a href="/printforge/pages/catalog.html">Каталог</a>
-      <a href="/printforge/pages/cart.html">Корзина</a>
       <a href="/printforge/pages/orders.html" class="active">Заказы</a>
     </nav>
     <div class="header-actions">
-      <button class="cart-btn" onclick="toggleCart()" aria-label="Корзина">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-        <span class="cart-badge" id="cartBadge">0</span>
-      </button>
+      <button class="cart-btn" onclick="toggleCart()" aria-label="Корзина"><i class="fas fa-shopping-bag"></i><span class="cart-badge">0</span></button>
     </div>
   </div>
 </header>
 
 <main>
   <div class="container">
-    <div class="breadcrumbs" id="breadcrumbs"></div>
+    <div class="breadcrumbs"><a href="/printforge/">Главная</a><span> / </span><span>Заказы</span></div>
   </div>
 
-  <section style="padding-top:0">
+  <section style="padding-top:0;min-height:60vh">
     <div class="container">
-      <h2 class="section-title reveal" style="margin-bottom:40px">Заказы <span class="accent">магазина</span></h2>
-      <div id="ordersContainer">
-        <div class="empty-orders"><h2>Загрузка...</h2></div>
-      </div>
+      <h2 class="section-title" style="margin-bottom:32px">Заказы <span class="accent">магазина</span></h2>
+      <div id="ordersContainer"><div class="cart-empty">Загрузка...</div></div>
     </div>
   </section>
 </main>
 
-<footer class="footer-wrap">
+<footer class="footer">
   <div class="container">
     <div class="footer-links">
       <a href="/printforge/">Главная</a>
       <a href="/printforge/pages/catalog.html">Каталог</a>
-      <a href="/printforge/pages/cart.html">Корзина</a>
       <a href="/printforge/pages/orders.html">Заказы</a>
     </div>
     <p>© 2026 PrintForge — 3D Моделист Конструктор</p>
@@ -73,44 +55,27 @@
 document.addEventListener('DOMContentLoaded', () => {
   const orders = JSON.parse(localStorage.getItem('pf_orders') || '[]');
   const el = document.getElementById('ordersContainer');
-
   if (!orders.length) {
-    el.innerHTML = '<div class="empty-orders"><h2>Нет заказов</h2><p style="color:var(--text-dim)">Заказы будут появляться здесь после оформления.</p><a href="/printforge/" style="color:var(--gold);display:inline-block;margin-top:16px">Вернуться в магазин</a></div>';
+    el.innerHTML = '<div class="cart-empty"><i class="fas fa-clipboard-list" style="font-size:48px;opacity:.3;margin-bottom:16px;display:block"></i><h3 style="font-family:var(--font-heading);color:var(--gold-dark);margin-bottom:8px">Нет заказов</h3><p style="color:var(--text-muted)">Заказы появятся здесь после оформления.</p><a href="/printforge/pages/catalog.html" style="color:var(--gold);display:inline-block;margin-top:16px">Перейти в каталог</a></div>';
     return;
   }
-
-  el.innerHTML = `<div style="margin-bottom:16px;color:var(--text-dim);font-size:14px">Всего заказов: ${orders.length}</div>` +
+  el.innerHTML = `<div style="margin-bottom:12px;color:var(--text-dim);font-size:14px">Всего заказов: ${orders.length}</div>` +
     orders.map(o => {
-      const date = new Date(o.date);
-      const dateStr = date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-      const items = o.items.map(i => `${i.title} ×${i.qty} — ${(i.price*i.qty).toLocaleString()} ₽`).join('<br>');
-      return `
-        <div class="order-card">
-          <div style="display:flex;justify-content:space-between;align-items:start">
-            <h3>Заказ #${o.id}</h3>
-            <span style="font-size:12px;color:var(--text-dim)">${dateStr}</span>
-          </div>
-          <div class="items">${items}</div>
-          <div class="total">${o.total.toLocaleString()} ₽</div>
-          <div class="customer">
-            <strong>${escapeHtml(o.name)}</strong> &mdash; ${escapeHtml(o.phone)}<br>
-            ${o.email ? 'Email: ' + escapeHtml(o.email) + '<br>' : ''}
-            ${o.address ? 'Адрес: ' + escapeHtml(o.address) + '<br>' : ''}
-            ${o.comment ? 'Комментарий: ' + escapeHtml(o.comment) : ''}
-          </div>
+      const d = new Date(o.date);
+      const ds = d.toLocaleDateString('ru-RU', {day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'});
+      return `<div class="order-card">
+        <div style="display:flex;justify-content:space-between;align-items:start">
+          <h3>Заказ #${o.id}</h3>
+          <span style="font-size:12px;color:var(--text-dim)">${ds}</span>
         </div>
-      `;
+        <div class="order-items">${o.items.map(i => `${i.title} ×${i.qty} — ${(i.price*i.qty).toLocaleString()} ₽`).join('<br>')}</div>
+        <div class="order-total">${o.total.toLocaleString()} ₽</div>
+        <div class="order-customer"><strong>${esc(o.name)}</strong> — ${esc(o.phone)}${o.email ? '<br>Email: '+esc(o.email) : ''}${o.addr ? '<br>Адрес: '+esc(o.addr) : ''}${o.comment ? '<br>Комментарий: '+esc(o.comment) : ''}</div>
+      </div>`;
     }).join('') +
-    `<div style="text-align:center;margin-top:24px">
-      <button onclick="localStorage.removeItem('pf_orders');location.reload()" style="padding:10px 24px;border:1px solid var(--card-border);background:transparent;color:var(--text-dim);border-radius:var(--radius);cursor:pointer;font-size:13px">Очистить историю заказов</button>
-    </div>`;
+    `<div style="text-align:center;margin-top:24px"><button onclick="localStorage.removeItem('pf_orders');location.reload()" style="padding:10px 24px;border:1px solid var(--border);background:var(--bg);color:var(--text-muted);border-radius:50px;cursor:pointer;font-size:13px">Очистить историю</button></div>`;
 });
-
-function escapeHtml(str) {
-  const d = document.createElement('div');
-  d.textContent = str;
-  return d.innerHTML;
-}
+function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
 </script>
 </body>
 </html>
