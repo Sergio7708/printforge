@@ -10,7 +10,7 @@ let cart = JSON.parse(localStorage.getItem(STORE + 'cart') || '[]');
 let currentFilter = 'all';
 let currentPage = 1;
 const PER_PAGE = 12;
-const BASE = ''; // relative to /printforge/ root
+const BASE = '/printforge';
 
 function photoUrl(p) {
   // Local photos for first 30 products, fallback to jarvis-bot-store
