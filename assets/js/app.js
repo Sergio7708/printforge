@@ -305,45 +305,117 @@ function toggleCart() {
   document.getElementById('cartSide')?.classList.toggle('open');
 }
 
-function checkout() {
+/* ---- Checkout Form ---- */
+function showCheckoutForm() {
   if (!cart.length) { toast('Корзина пуста'); return; }
-  const items = cart.map(i => {
-    const p = products.find(x => x.id === i.id);
-    return p ? `${p.title} ×${i.qty} = ${(p.price * i.qty).toLocaleString()}₽` : '';
-  }).filter(Boolean).join('\n');
+
   const total = cart.reduce((s, i) => {
     const p = products.find(x => x.id === i.id);
     return s + (p ? p.price * i.qty : 0);
   }, 0);
-  const orderId = Date.now().toString(36).toUpperCase();
-  const msg = `🆕 Заказ #${orderId}\n\n${items}\n\n💰 Итого: ${total.toLocaleString()} ₽`;
-  const encoded = encodeURIComponent(msg);
-  const tgLink = `https://t.me/D3ModelerDesigner?text=${encoded}`;
 
-  // Show order confirmation modal instead of redirect
   const el = document.getElementById('cartItems') || document.getElementById('cartPageItems');
   if (!el) return;
   document.getElementById('cartFooter').style.display = 'none';
   if (document.getElementById('cartPageFooter')) document.getElementById('cartPageFooter').style.display = 'none';
 
+  const itemsHtml = cart.map(i => {
+    const p = products.find(x => x.id === i.id);
+    return p ? `<div style="display:flex;justify-content:space-between;padding:4px 0"><span>${escapeHtml(p.title)} ×${i.qty}</span><span>${(p.price*i.qty).toLocaleString()} ₽</span></div>` : '';
+  }).join('');
+
+  el.innerHTML = `
+    <div class="cart-empty" style="padding:30px 24px;text-align:left">
+      <h3 style="font-family:var(--font-display);font-size:20px;color:var(--gold);margin-bottom:20px;text-align:center">Оформление заказа</h3>
+      <div style="margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--card-border)">
+        ${itemsHtml}
+        <div style="display:flex;justify-content:space-between;padding:8px 0 0;font-weight:700;color:var(--gold);border-top:1px solid var(--card-border);margin-top:8px">
+          <span>Итого:</span><span>${total.toLocaleString()} ₽</span>
+        </div>
+      </div>
+      <div id="checkoutForm">
+        <div style="margin-bottom:12px">
+          <label style="display:block;font-size:13px;color:var(--text-dim);margin-bottom:4px">Имя *</label>
+          <input id="ordName" placeholder="Ваше имя" style="width:100%;padding:10px 14px;border-radius:12px;border:1px solid var(--card-border);background:rgba(255,255,255,.03);color:#fff;font-size:14px;outline:none">
+        </div>
+        <div style="margin-bottom:12px">
+          <label style="display:block;font-size:13px;color:var(--text-dim);margin-bottom:4px">Телефон *</label>
+          <input id="ordPhone" placeholder="+7 (999) 123-45-67" style="width:100%;padding:10px 14px;border-radius:12px;border:1px solid var(--card-border);background:rgba(255,255,255,.03);color:#fff;font-size:14px;outline:none">
+        </div>
+        <div style="margin-bottom:12px">
+          <label style="display:block;font-size:13px;color:var(--text-dim);margin-bottom:4px">Email</label>
+          <input id="ordEmail" placeholder="email@example.com" style="width:100%;padding:10px 14px;border-radius:12px;border:1px solid var(--card-border);background:rgba(255,255,255,.03);color:#fff;font-size:14px;outline:none">
+        </div>
+        <div style="margin-bottom:16px">
+          <label style="display:block;font-size:13px;color:var(--text-dim);margin-bottom:4px">Адрес доставки</label>
+          <input id="ordAddress" placeholder="Город, улица, дом, квартира" style="width:100%;padding:10px 14px;border-radius:12px;border:1px solid var(--card-border);background:rgba(255,255,255,.03);color:#fff;font-size:14px;outline:none">
+        </div>
+        <div style="margin-bottom:16px">
+          <label style="display:block;font-size:13px;color:var(--text-dim);margin-bottom:4px">Комментарий к заказу</label>
+          <textarea id="ordComment" placeholder="Дополнительные пожелания" style="width:100%;padding:10px 14px;border-radius:12px;border:1px solid var(--card-border);background:rgba(255,255,255,.03);color:#fff;font-size:14px;outline:none;resize:vertical;min-height:50px;font-family:inherit"></textarea>
+        </div>
+        <button onclick="submitOrder()" style="width:100%;padding:14px;background:var(--gold);color:var(--black);border:none;border-radius:var(--radius);font-size:15px;text-transform:uppercase;letter-spacing:.06em;cursor:pointer">Подтвердить заказ</button>
+        <button onclick="toggleCart()" style="width:100%;padding:10px;background:none;border:none;color:var(--text-dim);font-size:13px;cursor:pointer;margin-top:8px">Отмена</button>
+      </div>
+    </div>
+  `;
+}
+
+function submitOrder() {
+  const name = document.getElementById('ordName')?.value.trim();
+  const phone = document.getElementById('ordPhone')?.value.trim();
+  if (!name || !phone) { toast('Заполните имя и телефон'); return; }
+
+  const total = cart.reduce((s, i) => {
+    const p = products.find(x => x.id === i.id);
+    return s + (p ? p.price * i.qty : 0);
+  }, 0);
+
+  const order = {
+    id: Date.now().toString(36).toUpperCase(),
+    date: new Date().toISOString(),
+    name, phone,
+    email: document.getElementById('ordEmail')?.value.trim() || '',
+    address: document.getElementById('ordAddress')?.value.trim() || '',
+    comment: document.getElementById('ordComment')?.value.trim() || '',
+    items: cart.map(i => {
+      const p = products.find(x => x.id === i.id);
+      return p ? { id: p.id, title: p.title, price: p.price, qty: i.qty } : null;
+    }).filter(Boolean),
+    total
+  };
+
+  // Save order
+  const orders = JSON.parse(localStorage.getItem('pf_orders') || '[]');
+  orders.unshift(order);
+  localStorage.setItem('pf_orders', JSON.stringify(orders));
+
+  // Show confirmation
+  const el = document.getElementById('cartItems') || document.getElementById('cartPageItems');
+  if (!el) return;
+
   el.innerHTML = `
     <div class="cart-empty" style="padding:40px 20px">
-      <div style="font-size:42px;color:var(--gold);margin-bottom:16px">✓</div>
-      <h3 style="color:var(--gold);font-family:var(--font-display);margin-bottom:8px">Заказ #${orderId} оформлен</h3>
-      <p style="color:var(--text-muted);margin-bottom:20px;line-height:1.7">${items.replace(/\n/g,'<br>')}</p>
-      <div style="border-top:1px solid var(--card-border);padding-top:16px;margin-bottom:20px">
-        <strong style="font-size:18px;color:var(--gold)">Итого: ${total.toLocaleString()} ₽</strong>
+      <div style="font-size:48px;color:var(--gold);margin-bottom:12px">✓</div>
+      <h3 style="font-family:var(--font-display);color:var(--gold);margin-bottom:8px;font-size:20px">Заказ #${order.id} принят!</h3>
+      <p style="color:var(--text-muted);margin-bottom:4px">Спасибо, ${escapeHtml(name)}!</p>
+      <p style="color:var(--text-dim);font-size:14px;margin-bottom:20px">Мы свяжемся с вами в ближайшее время.</p>
+      <div style="border-top:1px solid var(--card-border);padding-top:12px;margin-bottom:16px;font-size:14px;color:var(--text-dim);text-align:left">
+        <div style="margin-bottom:4px">${order.items.map(i => `${escapeHtml(i.title)} ×${i.qty} — ${(i.price*i.qty).toLocaleString()} ₽`).join('<br>')}</div>
+        <div style="font-weight:700;color:var(--gold);margin-top:8px">Итого: ${total.toLocaleString()} ₽</div>
       </div>
-      <p style="color:var(--text-dim);font-size:14px;margin-bottom:20px">Нажмите кнопку, чтобы отправить заказ в Telegram:</p>
-      <a href="${tgLink}" target="_blank" style="display:inline-block;padding:14px 36px;background:var(--gold);color:var(--black);border-radius:var(--radius);text-transform:uppercase;letter-spacing:.06em;font-size:14px;text-decoration:none">Отправить в Telegram</a>
-      <p style="color:var(--text-dim);font-size:13px;margin-top:12px">или скопируйте код заказа: <strong style="color:var(--gold)">${orderId}</strong></p>
-      <button onclick="clearCart();toggleCart()" style="margin-top:20px;background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:14px;text-decoration:underline">Продолжить покупки</button>
+      <button onclick="clearCart();toggleCart()" style="padding:12px 32px;background:var(--gold);color:var(--black);border:none;border-radius:var(--radius);font-size:14px;cursor:pointer;text-transform:uppercase;letter-spacing:.06em">Продолжить покупки</button>
     </div>
   `;
 
   cart = [];
   updateCart();
 }
+
+function checkout() { showCheckoutForm(); }
+window.showCheckoutForm = showCheckoutForm;
+window.submitOrder = submitOrder;
+
 
 /* ---- Toast ---- */
 function toast(msg) {
