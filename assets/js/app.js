@@ -309,18 +309,40 @@ function checkout() {
   if (!cart.length) { toast('Корзина пуста'); return; }
   const items = cart.map(i => {
     const p = products.find(x => x.id === i.id);
-    return p ? `${p.title} ×${i.qty}` : '';
-  }).filter(Boolean).join(', ');
+    return p ? `${p.title} ×${i.qty} = ${(p.price * i.qty).toLocaleString()}₽` : '';
+  }).filter(Boolean).join('\n');
   const total = cart.reduce((s, i) => {
     const p = products.find(x => x.id === i.id);
     return s + (p ? p.price * i.qty : 0);
   }, 0);
-  const msg = `Заказ:%0A${items}%0A%0AИтого: ${total.toLocaleString()} ₽`;
-  window.open(`https://t.me/D3ModelerDesigner?text=${msg}`, '_blank');
-  toast('Заказ отправлен!');
+  const orderId = Date.now().toString(36).toUpperCase();
+  const msg = `🆕 Заказ #${orderId}\n\n${items}\n\n💰 Итого: ${total.toLocaleString()} ₽`;
+  const encoded = encodeURIComponent(msg);
+  const tgLink = `https://t.me/D3ModelerDesigner?text=${encoded}`;
+
+  // Show order confirmation modal instead of redirect
+  const el = document.getElementById('cartItems') || document.getElementById('cartPageItems');
+  if (!el) return;
+  document.getElementById('cartFooter').style.display = 'none';
+  if (document.getElementById('cartPageFooter')) document.getElementById('cartPageFooter').style.display = 'none';
+
+  el.innerHTML = `
+    <div class="cart-empty" style="padding:40px 20px">
+      <div style="font-size:42px;color:var(--gold);margin-bottom:16px">✓</div>
+      <h3 style="color:var(--gold);font-family:var(--font-display);margin-bottom:8px">Заказ #${orderId} оформлен</h3>
+      <p style="color:var(--text-muted);margin-bottom:20px;line-height:1.7">${items.replace(/\n/g,'<br>')}</p>
+      <div style="border-top:1px solid var(--card-border);padding-top:16px;margin-bottom:20px">
+        <strong style="font-size:18px;color:var(--gold)">Итого: ${total.toLocaleString()} ₽</strong>
+      </div>
+      <p style="color:var(--text-dim);font-size:14px;margin-bottom:20px">Нажмите кнопку, чтобы отправить заказ в Telegram:</p>
+      <a href="${tgLink}" target="_blank" style="display:inline-block;padding:14px 36px;background:var(--gold);color:var(--black);border-radius:var(--radius);text-transform:uppercase;letter-spacing:.06em;font-size:14px;text-decoration:none">Отправить в Telegram</a>
+      <p style="color:var(--text-dim);font-size:13px;margin-top:12px">или скопируйте код заказа: <strong style="color:var(--gold)">${orderId}</strong></p>
+      <button onclick="clearCart();toggleCart()" style="margin-top:20px;background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:14px;text-decoration:underline">Продолжить покупки</button>
+    </div>
+  `;
+
   cart = [];
   updateCart();
-  toggleCart();
 }
 
 /* ---- Toast ---- */
