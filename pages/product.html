@@ -112,7 +112,7 @@ function renderProduct(id) {
 
   el.innerHTML = `
     <div class="prod-detail-img reveal">
-      <img src="https://sergio7708.github.io/jarvis-bot-store${p.photo_url}" alt="${p.title.replace(/"/g,'&quot;')}">
+      <img src="${p.id <= 30 ? '/printforge/assets/photos/' + p.id + '.jpg' : 'https://sergio7708.github.io/jarvis-bot-store' + p.photo_url}" alt="${p.title.replace(/"/g,'&quot;')}">
     </div>
     <div class="prod-detail-info reveal">
       <a href="/printforge/#catalog" class="prod-back">← Назад в каталог</a>

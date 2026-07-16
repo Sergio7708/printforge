@@ -10,6 +10,13 @@ let cart = JSON.parse(localStorage.getItem(STORE + 'cart') || '[]');
 let currentFilter = 'all';
 let currentPage = 1;
 const PER_PAGE = 12;
+const BASE = ''; // relative to /printforge/ root
+
+function photoUrl(p) {
+  // Local photos for first 30 products, fallback to jarvis-bot-store
+  if (p.id <= 30) return BASE + '/assets/photos/' + p.id + '.jpg';
+  return 'https://sergio7708.github.io/jarvis-bot-store' + p.photo_url;
+}
 
 /* ---- Init ---- */
 document.addEventListener('DOMContentLoaded', async () => {
@@ -97,7 +104,7 @@ function renderCatalog() {
   grid.innerHTML = pageItems.map(p => `
     <div class="prod-card">
       <a href="/pages/product.html?id=${p.id}">
-        <img class="prod-card-img" src="${API}${p.photo_url}" alt="${escapeHtml(p.title)}" loading="lazy">
+        <img class="prod-card-img" src="${photoUrl(p)}" alt="${escapeHtml(p.title)}" loading="lazy">
       </a>
       <div class="prod-body">
         <div class="prod-cat">${p.category}</div>
@@ -238,7 +245,7 @@ function renderCartSide() {
     if (!p) return '';
     return `
       <div class="cart-item">
-        <img class="cart-item-img" src="${API}${p.photo_url}" alt="${escapeHtml(p.title)}" loading="lazy">
+        <img class="cart-item-img" src="${photoUrl(p)}" alt="${escapeHtml(p.title)}" loading="lazy">
         <div class="cart-item-info">
           <div class="cart-item-name">${escapeHtml(p.title)}</div>
           <div class="cart-item-price">${p.price.toLocaleString()} ₽</div>
@@ -274,7 +281,7 @@ function renderCartPage() {
     if (!p) return '';
     return `
       <div class="cart-item">
-        <img class="cart-item-img" src="${API}${p.photo_url}" alt="${escapeHtml(p.title)}" loading="lazy">
+        <img class="cart-item-img" src="${photoUrl(p)}" alt="${escapeHtml(p.title)}" loading="lazy">
         <div class="cart-item-info">
           <div class="cart-item-name">${escapeHtml(p.title)}</div>
           <div class="cart-item-price">${p.price.toLocaleString()} ₽</div>
