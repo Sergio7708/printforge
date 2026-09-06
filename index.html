@@ -1,11 +1,254 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0;url=mini_app.html">
-  <title>3D Моделист Конструктор</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PrintForge — 3D печать физических моделей на заказ</title>
+  <meta name="description" content="PrintForge — студия 3D печати физических моделей. Техника из игр, фигурки, оружие, детали. Доставка по России.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css?v=1">
 </head>
 <body>
-  <p>Перенаправление в <a href="mini_app.html">магазин</a>...</p>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container">
+      <a href="index.html" class="logo">Print<span>Forge</span></a>
+      <nav class="nav">
+        <a href="index.html" class="active">Главная</a>
+        <a href="pages/catalog.html">Каталог</a>
+        <a href="#about">О нас</a>
+        <a href="#contact">Контакты</a>
+      </nav>
+      <div class="header-right">
+        <div class="search-bar">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input type="text" id="search-input" placeholder="Поиск товаров...">
+        </div>
+        <div class="cart-btn" onclick="PF.toggleCart(true)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          <span class="cart-badge">0</span>
+        </div>
+        <button class="hamburger" onclick="document.querySelector('.nav').classList.toggle('show')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content container">
+      <h1>Print<span>Forge</span></h1>
+      <p>Профессиональная 3D печать физических моделей на заказ. Техника из игр, фигурки, оружие, комплектующие.</p>
+      <div class="hero-btns">
+        <a href="pages/catalog.html" class="btn btn-primary">Перейти в каталог</a>
+        <a href="#about" class="btn btn-outline">Узнать больше</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section" id="services">
+    <div class="container">
+      <h2 class="section-title">Наши услуги</h2>
+      <p class="section-subtitle">Полный цикл 3D печати — от модели до готового изделия</p>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">⚙</div>
+          <h3>3D печать</h3>
+          <p>FDM, SLA, SLS технологии. Материалы: PLA, PETG, Resin, Nylon. Точность до 0.1 мм.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">✎</div>
+          <h3>3D моделирование</h3>
+          <p>Создание моделей с нуля по техническому заданию или эскизу. Игральные фигурки, техника, архитектура.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">◉</div>
+          <h3>Постобработка</h3>
+          <p>Грунтовка, покраска, лакировка. Готовые модели сразу на полку или в коллекцию.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATALOG PREVIEW -->
+  <section class="section" style="background:#fff">
+    <div class="container">
+      <h2 class="section-title">Популярные модели</h2>
+      <p class="section-subtitle">Наши бестселлеры — проверенные временем и сотнями клиентов</p>
+      <div class="products-grid" id="catalog-preview"></div>
+      <div style="text-align:center;margin-top:40px">
+        <a href="pages/catalog.html" class="btn btn-ghost">Смотреть весь каталог →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-img">
+          <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=500&fit=crop" alt="3D печать">
+        </div>
+        <div class="about-text">
+          <h2>О студии PrintForge</h2>
+          <p>Мы — команда 3D-моделлеров и инженеров, которые превращают цифровые модели в физические объекты. Каждая модель проходит контроль качества перед отправкой.</p>
+          <p>Работаем с 2023 года. Более 500 выполненных заказов. Средний рейтинг — 4.9 из 5.</p>
+          <div class="stats">
+            <div class="stat"><div class="stat-num">500+</div><div class="stat-label">Моделей</div></div>
+            <div class="stat"><div class="stat-num">98%</div><div class="stat-label">Довольных</div></div>
+            <div class="stat"><div class="stat-num">4.9</div><div class="stat-label">Рейтинг</div></div>
+            <div class="stat"><div class="stat-num">3</div><div class="stat-label">Года опыта</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section" style="background:#fff">
+    <div class="container">
+      <h2 class="section-title">Как это работает</h2>
+      <p class="section-subtitle">От выбора модели до доставки — 4 простых шага</p>
+      <div class="process-grid">
+        <div class="process-step">
+          <div class="step-num">1</div>
+          <h4>Выберите модель</h4>
+          <p>Найдите нужную модель в каталоге или опишите свою идею</p>
+        </div>
+        <div class="process-step">
+          <div class="step-num">2</div>
+          <h4>Оформите заказ</h4>
+          <p>Укажите имя, адрес доставки и способ оплаты</p>
+        </div>
+        <div class="process-step">
+          <div class="step-num">3</div>
+          <h4>Печать и сборка</h4>
+          <p>Печатаем, обрабатываем и красим вашу модель</p>
+        </div>
+        <div class="process-step">
+          <div class="step-num">4</div>
+          <h4>Доставка</h4>
+          <p>Отправляем СДЭК, Почтой России или самовывоз</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section" id="contact">
+    <div class="container">
+      <h2 class="section-title">Контакты</h2>
+      <p class="section-subtitle">Свяжитесь с нами для обсуждения заказа</p>
+      <div class="contact-grid">
+        <form class="contact-form" onsubmit="event.preventDefault();toast('Сообщение отправлено!')">
+          <div class="form-group"><label>Имя</label><input type="text" name="name" required></div>
+          <div class="form-group"><label>Email</label><input type="email" name="email" required></div>
+          <div class="form-group"><label>Сообщение</label><textarea name="msg" required></textarea></div>
+          <button type="submit" class="btn btn-primary" style="align-self:flex-start">Отправить</button>
+        </form>
+        <div class="contact-info">
+          <div class="info-item">
+            <div class="info-icon">📍</div>
+            <div><h4>Адрес</h4><p>Россия, работаем по всей стране</p></div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">✉</div>
+            <div><h4>Email</h4><p>info@printforge.ru</p></div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">☎</div>
+            <div><h4>Телефон</h4><p>+7 (999) 123-45-67</p></div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">◷</div>
+            <div><h4>График</h4><p>Пн–Пт: 10:00–19:00</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo">Print<span>Forge</span></div>
+          <p>Профессиональная 3D печать физических моделей на заказ. Доставка по всей России.</p>
+        </div>
+        <div>
+          <h5>Каталог</h5>
+          <ul>
+            <li><a href="pages/catalog.html">Техника из игр</a></li>
+            <li><a href="pages/catalog.html">Фигурки</a></li>
+            <li><a href="pages/catalog.html">Оружие/аксессуары</a></li>
+            <li><a href="pages/catalog.html">Детали/крепёж</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Информация</h5>
+          <ul>
+            <li><a href="#about">О нас</a></li>
+            <li><a href="#services">Услуги</a></li>
+            <li><a href="pages/orders.html">Мои заказы</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Контакты</h5>
+          <ul>
+            <li>info@printforge.ru</li>
+            <li>+7 (999) 123-45-67</li>
+            <li>Пн–Пт: 10:00–19:00</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 PrintForge. Все права защищены.</span>
+        <span>3D печать на заказ</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CART SIDEBAR -->
+  <div class="cart-overlay" id="cart-overlay"></div>
+  <div class="cart-sidebar" id="cart-sidebar">
+    <div class="cart-header">
+      <h3>Корзина</h3>
+      <button class="cart-close" onclick="PF.toggleCart(false)">✕</button>
+    </div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-footer" id="cart-footer" style="display:none">
+      <div class="cart-total"><span>Итого</span><span id="cart-total">0 ₽</span></div>
+      <button class="btn btn-primary" style="width:100%" onclick="PF.openCheckout()">Оформить заказ</button>
+    </div>
+  </div>
+
+  <!-- CHECKOUT MODAL -->
+  <div class="modal-overlay" id="checkout-modal">
+    <div class="modal">
+      <h2>Оформление заказа</h2>
+      <form id="checkout-form" onsubmit="PF.submitOrder(event)">
+        <div class="form-row">
+          <div class="form-group"><label>Имя</label><input type="text" name="name" required></div>
+          <div class="form-group"><label>Телефон</label><input type="tel" name="phone" required></div>
+        </div>
+        <div class="form-group"><label>Email</label><input type="email" name="email"></div>
+        <div class="form-group"><label>Адрес доставки</label><input type="text" name="address" required></div>
+        <div class="form-group"><label>Комментарий</label><textarea name="comment" rows="3"></textarea></div>
+        <div class="order-summary" id="checkout-summary"></div>
+        <div style="display:flex;gap:12px;justify-content:flex-end">
+          <button type="button" class="btn btn-ghost btn-sm" onclick="document.getElementById('checkout-modal').classList.remove('open')">Отмена</button>
+          <button type="submit" class="btn btn-primary">Подтвердить заказ</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="assets/js/app.js?v=1"></script>
 </body>
 </html>

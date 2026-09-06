@@ -1,0 +1,2108 @@
+[
+  {
+    "id": 1,
+    "title": "Hybris Studio — Фараон-Меха",
+    "desc": "Фигурка девушка фараон",
+    "price": 500,
+    "photo_url": "/product_photos/1.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 33,
+    "title": "Роуг - один из самых известных участников Людей Икс, но так было не всегда. Когда-то она",
+    "desc": "Качественная 3D-печать на заказ",
+    "price": 1000,
+    "photo_url": "/product_photos/33.jpg",
+    "category": "Прочее",
+    "rating": 4.5
+  },
+  {
+    "id": 34,
+    "title": "Рей Скайуокер",
+    "desc": "Качественная 3D-печать на заказ",
+    "price": 1000,
+    "photo_url": "/product_photos/34.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 35,
+    "title": "Столп любви» в организации охотников за демонами. На год старше Синобу Котё, ей 19 лет.",
+    "desc": "Качественная 3D-печать на заказ",
+    "price": 1000,
+    "photo_url": "/product_photos/35.jpg",
+    "category": "Прочее",
+    "rating": 4.5
+  },
+  {
+    "id": 36,
+    "title": "Ниан — Arknights",
+    "desc": "Качественная 3D-печать на заказ",
+    "price": 1000,
+    "photo_url": "/product_photos/36.jpg",
+    "category": "Прочее",
+    "rating": 4.5
+  },
+  {
+    "id": 37,
+    "title": "Нажмите для скачивания",
+    "desc": "❤️share and support us",
+    "price": 1000,
+    "photo_url": "/product_photos/37.jpg",
+    "category": "Прочее",
+    "rating": 4.5
+  },
+  {
+    "id": 38,
+    "title": "Момо Аясэ — Горничная",
+    "desc": "Serik Collection - Momo Ayase Maid",
+    "price": 1000,
+    "photo_url": "/product_photos/38.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 39,
+    "title": "Девушка-зайка",
+    "desc": "CW Studio - Bunny Girl",
+    "price": 1000,
+    "photo_url": "/product_photos/39.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 40,
+    "title": "Jigglystix VaultGirl 69",
+    "desc": "Jigglystix 2022-05 VaultGirl 69 NSFW",
+    "price": 1000,
+    "photo_url": "/product_photos/40.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 41,
+    "title": "Распутин IV",
+    "desc": "Rasputin IV (Lover of the Russian Queen)",
+    "price": 1000,
+    "photo_url": "/product_photos/41.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 42,
+    "title": "Archvillain Games — Odoben Doomseeker",
+    "desc": "Archvillain Games Frostburn Horrors Path of Ice Odoben Doomseeker",
+    "price": 1000,
+    "photo_url": "/product_photos/42.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 43,
+    "title": "Archvillain Games — Odoben Doomseeker",
+    "desc": "Archvillain Games Frostburn Horrors Path of Ice Odoben Doomseeker",
+    "price": 1000,
+    "photo_url": "/product_photos/43.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 44,
+    "title": "Archvillain Games — Mammuti 4",
+    "desc": "Archvillain Games Frostburn Horrors Path of Ice Mammuti 4",
+    "price": 1000,
+    "photo_url": "/product_photos/44.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 45,
+    "title": "Archvillain Games — Mammuti 3",
+    "desc": "Archvillain Games Frostburn Horrors Path of Ice Mammuti 3",
+    "price": 1000,
+    "photo_url": "/product_photos/45.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 46,
+    "title": "Archvillain Games — Mammuti 2",
+    "desc": "Archvillain Games Frostburn Horrors Path of Ice Mammuti 2",
+    "price": 1000,
+    "photo_url": "/product_photos/46.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 47,
+    "title": "Archvillain Society Vol. XVIII — Tovi Blackfingers",
+    "desc": "Archvillain Games Archvillain Society Vol XVIII Tovi Blackfingers",
+    "price": 1000,
+    "photo_url": "/product_photos/47.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 48,
+    "title": "Unit9",
+    "desc": "Unit9 2025-03.part1",
+    "price": 1000,
+    "photo_url": "/product_photos/48.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 49,
+    "title": "Моран",
+    "desc": "Moran",
+    "price": 1000,
+    "photo_url": "/product_photos/49.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 50,
+    "title": "Киберпанк Мицури",
+    "desc": "Cyberpunk Mitsuri @projectSTL",
+    "price": 1000,
+    "photo_url": "/product_photos/50.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 51,
+    "title": "Брелок Nissan",
+    "desc": "Nissan+Keychain+AMS+(1) stls",
+    "price": 1000,
+    "photo_url": "/product_photos/51.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 52,
+    "title": "Брелок Chevrolet",
+    "desc": "Chevrolet+Keychain+AMS+(1) stls",
+    "price": 1000,
+    "photo_url": "/product_photos/52.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 53,
+    "title": "Брелок KIA",
+    "desc": "KIA+Keychain+AMS+(1) stls",
+    "price": 1000,
+    "photo_url": "/product_photos/53.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 54,
+    "title": "Шторм и Роуг — Дикари",
+    "desc": "Francis Quez - Storm & Rogue Savage @stl for Home",
+    "price": 1000,
+    "photo_url": "/product_photos/54.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 55,
+    "title": "Тиамат — Fate",
+    "desc": "Tiamat Fate",
+    "price": 1000,
+    "photo_url": "/product_photos/55.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 56,
+    "title": "Кимая — Визирь Ракшаса (25мм)",
+    "desc": "Kimaya, Rakshasa Vizir [25mm Base]",
+    "price": 1000,
+    "photo_url": "/product_photos/56.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 57,
+    "title": "STATIX STL — Зартан",
+    "desc": "STATIX STL ZARTAN",
+    "price": 1000,
+    "photo_url": "/product_photos/57.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 58,
+    "title": "Кот-самурай",
+    "desc": "Samurai cat",
+    "price": 1000,
+    "photo_url": "/product_photos/58.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 59,
+    "title": "Светлый рыцарь Скарлет",
+    "desc": "Light knight Scarlet Game ready Low poly 3D model Low poly 3D model",
+    "price": 1000,
+    "photo_url": "/product_photos/59.jpg",
+    "category": "Игровая техника",
+    "rating": 4.5
+  },
+  {
+    "id": 60,
+    "title": "Моран",
+    "desc": "Moran",
+    "price": 1000,
+    "photo_url": "/product_photos/60.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 61,
+    "title": "Булма — Косплей",
+    "desc": "brunoart3d-Cosplay Bulma nsfw",
+    "price": 1000,
+    "photo_url": "/product_photos/61.jpg",
+    "category": "Косплей",
+    "rating": 4.5
+  },
+  {
+    "id": 62,
+    "title": "Скуби-Ду",
+    "desc": "Scooby  doo",
+    "price": 1000,
+    "photo_url": "/product_photos/62.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 63,
+    "title": "Велма",
+    "desc": "Velma",
+    "price": 1000,
+    "photo_url": "/product_photos/63.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 64,
+    "title": "Битлджус",
+    "desc": "BEETLE  JUICE",
+    "price": 1000,
+    "photo_url": "/product_photos/64.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 65,
+    "title": "Стеллоун — Священник",
+    "desc": "PRIEST STALLONE",
+    "price": 1000,
+    "photo_url": "/product_photos/65.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 66,
+    "title": "Ворон — Гонщик 750 FPV",
+    "desc": "Crow+Racer+750+V2+mm+FPV+Racer+Plane+-+Test+Files",
+    "price": 1000,
+    "photo_url": "/product_photos/66.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 67,
+    "title": "Hololive — Нанаси Мумей",
+    "desc": "Pikky Prints - Hololive - Nanashi Mumei",
+    "price": 1000,
+    "photo_url": "/product_photos/67.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 68,
+    "title": "Железный человек MK1",
+    "desc": "IRON MAN MK1",
+    "price": 1000,
+    "photo_url": "/product_photos/68.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 69,
+    "title": "Месяц 32 — Февраль 2020",
+    "desc": "Month32.February2020",
+    "price": 1000,
+    "photo_url": "/product_photos/69.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 70,
+    "title": "Heroicas — 3D Арт",
+    "desc": "Heroicas [LD 3D Art].001",
+    "price": 1000,
+    "photo_url": "/product_photos/70.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 71,
+    "title": "Шера — Рендер",
+    "desc": "shera render",
+    "price": 1000,
+    "photo_url": "/product_photos/71.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 72,
+    "title": "Подставка для телефона — Лара Крофт",
+    "desc": "Lara Croft phone holder @stl for Home",
+    "price": 1000,
+    "photo_url": "/product_photos/72.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 73,
+    "title": "Волшебный меч",
+    "desc": "Nuskul Art - Magik Sword t.me MOXOMOR aka",
+    "price": 1000,
+    "photo_url": "/product_photos/73.jpg",
+    "category": "Оружие",
+    "rating": 4.5
+  },
+  {
+    "id": 74,
+    "title": "Спайк",
+    "desc": "Spike @stl for Home",
+    "price": 1000,
+    "photo_url": "/product_photos/74.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 75,
+    "title": "Звёздная Фиалка",
+    "desc": "Starviolet @stl for Home",
+    "price": 1000,
+    "photo_url": "/product_photos/75.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 76,
+    "title": "Бэтмен — Динамичная поза",
+    "desc": "Batman Dinamic Pose @stl for Home",
+    "price": 1000,
+    "photo_url": "/product_photos/76.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 77,
+    "title": "Геракл и Немейский лев",
+    "desc": "Heracles and Nemean Lion",
+    "price": 1000,
+    "photo_url": "/product_photos/77.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 78,
+    "title": "Abe3D — Ева",
+    "desc": "Abe3D Eve NSFW Version",
+    "price": 1000,
+    "photo_url": "/product_photos/78.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 79,
+    "title": "Sanix",
+    "desc": "REY - Sanix-20190703T122046Z-001",
+    "price": 1000,
+    "photo_url": "/product_photos/79.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 80,
+    "title": "Printomancer — Абер с собаками",
+    "desc": "Printomancer Abere with dogs",
+    "price": 1000,
+    "photo_url": "/product_photos/80.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 81,
+    "title": "Ван Гог",
+    "desc": "Van Gogh @Print3DWorld",
+    "price": 1000,
+    "photo_url": "/product_photos/81.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 82,
+    "title": "Tanuki Figures — Попай (бюст) 2025",
+    "desc": "TanukiFigures 2025 01 Popeye Bust",
+    "price": 1000,
+    "photo_url": "/product_photos/82.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 83,
+    "title": "Tanuki Figures — Попай (полный рост) 2025",
+    "desc": "TanukiFigures 2025 01 Popeye FullSize",
+    "price": 1000,
+    "photo_url": "/product_photos/83.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 84,
+    "title": "Фальсе",
+    "desc": "Falce @stl for Home",
+    "price": 1000,
+    "photo_url": "/product_photos/84.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 85,
+    "title": "Kaidan 3D — Макима",
+    "desc": "Kaidan 3D – Makima t.me MOXOMOR aka",
+    "price": 1000,
+    "photo_url": "/product_photos/85.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 86,
+    "title": "Kaidan 3D — Неферпиту",
+    "desc": "Kaidan 3D – Neferpitou x Terpsichora t.me MOXOMOR aka",
+    "price": 1000,
+    "photo_url": "/product_photos/86.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 87,
+    "title": "Особые STL (Самурай с малышом)",
+    "desc": "Lone Wolf - Special STLs (Samurai with Baby)",
+    "price": 1000,
+    "photo_url": "/product_photos/87.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 88,
+    "title": "ЛеЧак — Остров обезьян",
+    "desc": "Lechuck Monkey Island",
+    "price": 1000,
+    "photo_url": "/product_photos/88.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 89,
+    "title": "С поддержками",
+    "desc": "1-6 Scale Asterix e obelix diorama - Pre Supported",
+    "price": 1000,
+    "photo_url": "/product_photos/89.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 90,
+    "title": "OXO3D — Алита: Боевой ангел",
+    "desc": "OXO3D Figures Alita Battle Angel t.me MOXOMOR aka",
+    "price": 1000,
+    "photo_url": "/product_photos/90.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 91,
+    "title": "ATV — Dazzler",
+    "desc": "ATV Digital Sculptures – Dazzler — 3D print model STL",
+    "price": 1000,
+    "photo_url": "/product_photos/91.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 92,
+    "title": "FAN Punchline (STL)",
+    "desc": "FAN Punchline(STL)",
+    "price": 1000,
+    "photo_url": "/product_photos/92.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 93,
+    "title": "Бильзебосс",
+    "desc": "Tenacious D -Pick of Destiny - Beelzeboss @stl for Home",
+    "price": 1000,
+    "photo_url": "/product_photos/93.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 94,
+    "title": "Мисато Кацураги",
+    "desc": "Misato Katsurag t.me MOXOMOR aka",
+    "price": 1000,
+    "photo_url": "/product_photos/94.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 95,
+    "title": "Рю",
+    "desc": "Ryu",
+    "price": 1000,
+    "photo_url": "/product_photos/95.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 96,
+    "title": "Люси и Дэвид",
+    "desc": "Bulkamancer - Lucy and David",
+    "price": 1000,
+    "photo_url": "/product_photos/96.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 97,
+    "title": "Ядовитый Плющ — Март 2025",
+    "desc": "E.S Monster - Poison Ivy March 2025",
+    "price": 1000,
+    "photo_url": "/product_photos/97.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 98,
+    "title": "Они — Генерал",
+    "desc": "Oni General",
+    "price": 1000,
+    "photo_url": "/product_photos/98.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 99,
+    "title": "Они — Ронин",
+    "desc": "Oni Ronin",
+    "price": 1000,
+    "photo_url": "/product_photos/99.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 100,
+    "title": "Особые STLS",
+    "desc": "Thrall - $$Special STLS$$ (Washed)",
+    "price": 1000,
+    "photo_url": "/product_photos/100.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 101,
+    "title": "Toon Studios — Стич на волне",
+    "desc": "Toon Studios Stitch Surf t.me MOXOMOR aka",
+    "price": 1000,
+    "photo_url": "/product_photos/101.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 102,
+    "title": "Hardcore Minis — 09.2024",
+    "desc": "Hardcore Minis 09-2024",
+    "price": 1000,
+    "photo_url": "/product_photos/102.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 103,
+    "title": "NL — Колдун (кастом)",
+    "desc": "NL Sorcerer Custom",
+    "price": 1000,
+    "photo_url": "/product_photos/103.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 104,
+    "title": "Берсерки из Ада",
+    "desc": "hellforged berzerkers",
+    "price": 1000,
+    "photo_url": "/product_photos/104.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 105,
+    "title": "Королева Марика — Расширенная версия",
+    "desc": "Goyd Figures - Queen Marika - Extra version",
+    "price": 1000,
+    "photo_url": "/product_photos/105.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 106,
+    "title": "Zenless Zone Zero — Бернайс Уайт",
+    "desc": "CW Studios - Zenless Zone Zero - Burnice White",
+    "price": 1000,
+    "photo_url": "/product_photos/106.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 107,
+    "title": "Андроид 18",
+    "desc": "CW Studios -Dragon Ball - Android 18",
+    "price": 1000,
+    "photo_url": "/product_photos/107.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 108,
+    "title": "Моргана +",
+    "desc": "Peach Figure - Morgana +NSFW",
+    "price": 1000,
+    "photo_url": "/product_photos/108.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 109,
+    "title": "Коносуба",
+    "desc": "Megumin Sexy Attack - Konosuba °",
+    "price": 1000,
+    "photo_url": "/product_photos/109.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 110,
+    "title": "Хулькенберг (Metaphor ReFantazio)",
+    "desc": "NerdFury3D - Hulkenberg (Metaphor ReFantazio) @figuruwustl",
+    "price": 1000,
+    "photo_url": "/product_photos/110.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 111,
+    "title": "Алая Ведьма — Зомби",
+    "desc": "Scarlet Witch Zombie",
+    "price": 1000,
+    "photo_url": "/product_photos/111.jpg",
+    "category": "Игровая техника",
+    "rating": 4.5
+  },
+  {
+    "id": 112,
+    "title": "Веном — Зомби",
+    "desc": "Venom Zombie",
+    "price": 1000,
+    "photo_url": "/product_photos/112.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 113,
+    "title": "Эпоха Апокалипсиса",
+    "desc": "Gambit - Age of Apocalypse",
+    "price": 1000,
+    "photo_url": "/product_photos/113.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 114,
+    "title": "Имхотеп",
+    "desc": "Imhotep",
+    "price": 1000,
+    "photo_url": "/product_photos/114.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 115,
+    "title": "Рем — Боевая поза",
+    "desc": "Rem battle pose",
+    "price": 1000,
+    "photo_url": "/product_photos/115.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 116,
+    "title": "Digicom Troopers",
+    "desc": "Digicom Troopers @stl zone",
+    "price": 1000,
+    "photo_url": "/product_photos/116.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 117,
+    "title": "ForestDragon — Рептильная армия",
+    "desc": "ForestDragon Reptilian Army Complete @stl zone.z01",
+    "price": 1000,
+    "photo_url": "/product_photos/117.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 118,
+    "title": "Каратель — Женская версия",
+    "desc": "E.S Monster - Punisher Female",
+    "price": 1000,
+    "photo_url": "/product_photos/118.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 119,
+    "title": "Blue Archive — Мари",
+    "desc": "Blue Archive Mari @stl for Home",
+    "price": 1000,
+    "photo_url": "/product_photos/119.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 120,
+    "title": "Gsculpt Art",
+    "desc": "Fysi the dryad - Gsculpt Art",
+    "price": 1000,
+    "photo_url": "/product_photos/120.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 121,
+    "title": "Коносуба",
+    "desc": "Megumin Sexy Attack - Konosuba °",
+    "price": 1000,
+    "photo_url": "/product_photos/121.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 122,
+    "title": "Мегу — Красная",
+    "desc": "Sin3Dstudio - megu red",
+    "price": 1000,
+    "photo_url": "/product_photos/122.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 123,
+    "title": "3Dmoonn — Клеа Стрэндж",
+    "desc": "3Dmoonn – Clea Strange – 3D Print Model STL",
+    "price": 1000,
+    "photo_url": "/product_photos/123.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 124,
+    "title": "Гермиона — Часть 1",
+    "desc": "Hermione Part1",
+    "price": 1000,
+    "photo_url": "/product_photos/124.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 125,
+    "title": "Моргана",
+    "desc": "CA3D Studios - Morgana @STLA3DM",
+    "price": 1000,
+    "photo_url": "/product_photos/125.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 126,
+    "title": "Танос — Статуя 410мм",
+    "desc": "Wicked - Thanos Statue 410mm (Non Supported)",
+    "price": 1000,
+    "photo_url": "/product_photos/126.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 127,
+    "title": "CA3D Studios — Дэйв Джонс",
+    "desc": "CA3D Studios – Dave Jones@HugoSan.part1",
+    "price": 1000,
+    "photo_url": "/product_photos/127.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 128,
+    "title": "Сорасаки Хина",
+    "desc": "Gr8 Studio - Sorasaki Hina @STLA3DM",
+    "price": 1000,
+    "photo_url": "/product_photos/128.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 129,
+    "title": "Часть 2 (от DTR Studio 3D)",
+    "desc": "Donkey Kong Country - Part 2 (by DTR Studio 3D)",
+    "price": 1000,
+    "photo_url": "/product_photos/129.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 130,
+    "title": "Эльза — Подставка (бюст)",
+    "desc": "Elsa bustholder bundle nsfw by texelion",
+    "price": 1000,
+    "photo_url": "/product_photos/130.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 131,
+    "title": "Piano Wargames — Вюртембергская пехота 28мм",
+    "desc": "Piano Wargames Wurttemberg 1806-12 Infantry 28mm",
+    "price": 1000,
+    "photo_url": "/product_photos/131.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 132,
+    "title": "Пикки",
+    "desc": "Chi & Yuu (Girls Last Tour) - Pikky @stl for Home",
+    "price": 1000,
+    "photo_url": "/product_photos/132.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 133,
+    "title": "Джули — Хеви-метал",
+    "desc": "Julie Heavy metal @stl for Home",
+    "price": 1000,
+    "photo_url": "/product_photos/133.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 134,
+    "title": "Подставка для украшений — Гриб",
+    "desc": "Mystic+Mushroom+Jewelry+Holder @stl zone",
+    "price": 1000,
+    "photo_url": "/product_photos/134.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 135,
+    "title": "Настольные часы",
+    "desc": "table clock @stl zone",
+    "price": 1000,
+    "photo_url": "/product_photos/135.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 136,
+    "title": "Ваза Тюльпан",
+    "desc": "The Tulipa Vase @stl zone",
+    "price": 1000,
+    "photo_url": "/product_photos/136.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 137,
+    "title": "STL",
+    "desc": "Casey Jones - STL",
+    "price": 1000,
+    "photo_url": "/product_photos/137.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 138,
+    "title": "Бэтмен — Статуя",
+    "desc": "Batman Statue",
+    "price": 1000,
+    "photo_url": "/product_photos/138.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 139,
+    "title": "Супермен и Лоис",
+    "desc": "Superman and Lois",
+    "price": 1000,
+    "photo_url": "/product_photos/139.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 140,
+    "title": "Старлорд",
+    "desc": "starlord stls",
+    "price": 1000,
+    "photo_url": "/product_photos/140.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 141,
+    "title": "Эйприл и Кейси — Черепашки-ниндзя",
+    "desc": "April and Casey from TMNT @stl for Home",
+    "price": 1000,
+    "photo_url": "/product_photos/141.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 142,
+    "title": "VS3D — Классические монстры: Франкенштейн",
+    "desc": "VS3D Classic Monsters Frankenstein t.me MOXOMOR aka",
+    "price": 1000,
+    "photo_url": "/product_photos/142.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 143,
+    "title": "VS3D — Классические монстры: Призрак Оперы",
+    "desc": "VS3D Classic Monsters The Phantom of the Opera t me MOXOMOR aka",
+    "price": 1000,
+    "photo_url": "/product_photos/143.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 144,
+    "title": "Преди",
+    "desc": "Predy stls",
+    "price": 1000,
+    "photo_url": "/product_photos/144.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 145,
+    "title": "Орёл",
+    "desc": "eagle  @stl zone",
+    "price": 1000,
+    "photo_url": "/product_photos/145.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 146,
+    "title": "Тройная поза",
+    "desc": "Harley Quinn - Triple Pose",
+    "price": 1000,
+    "photo_url": "/product_photos/146.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 147,
+    "title": "Eslatigirl",
+    "desc": "ToonStudios - Eslatigirl",
+    "price": 1000,
+    "photo_url": "/product_photos/147.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 148,
+    "title": "Tanuki Figures — Логан",
+    "desc": "Tanuki Figures Logan",
+    "price": 1000,
+    "photo_url": "/product_photos/148.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 149,
+    "title": "h3LL — Арагорн (скульптура и бюст)",
+    "desc": "h3LL creator Aragorn Sculpture and Bust t.me MOXOMOR aka",
+    "price": 1000,
+    "photo_url": "/product_photos/149.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 150,
+    "title": "Dragonbond — Январь 2024",
+    "desc": "Draco Studios - Dragonbond - January 2024",
+    "price": 1000,
+    "photo_url": "/product_photos/150.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 151,
+    "title": "Fandom Collectibles — Лилия",
+    "desc": "Fandom Collectibles – Lillia – 3D Print Model STL.part1",
+    "price": 1000,
+    "photo_url": "/product_photos/151.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 152,
+    "title": "Chuya Factory — Эоус без поддержек",
+    "desc": "Chuya Factory Eous Unsupported @figuruwustl",
+    "price": 1000,
+    "photo_url": "/product_photos/152.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 153,
+    "title": "Рохан — Гамлинг (набор 01)",
+    "desc": "Rohan Gamling Pack 01",
+    "price": 1000,
+    "photo_url": "/product_photos/153.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 154,
+    "title": "Рохан — Эовин (набор 02)",
+    "desc": "Rohan Eowyn Pack 02",
+    "price": 1000,
+    "photo_url": "/product_photos/154.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 155,
+    "title": "Рохан — Эовин (набор 01)",
+    "desc": "Rohan Eowyn Pack 01",
+    "price": 1000,
+    "photo_url": "/product_photos/155.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 156,
+    "title": "Рохан — Командный набор 01",
+    "desc": "Rohan Command Pack 01",
+    "price": 1000,
+    "photo_url": "/product_photos/156.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 157,
+    "title": "Радагаст",
+    "desc": "Radagast",
+    "price": 1000,
+    "photo_url": "/product_photos/157.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 158,
+    "title": "Орки-луки",
+    "desc": "Orc Bowmen Metal",
+    "price": 1000,
+    "photo_url": "/product_photos/158.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 159,
+    "title": "Мурин и Драр",
+    "desc": "Murin & Drar",
+    "price": 1000,
+    "photo_url": "/product_photos/159.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 160,
+    "title": "Мория — Гоблины-шаманы",
+    "desc": "Moria Goblins Shamans",
+    "price": 1000,
+    "photo_url": "/product_photos/160.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 161,
+    "title": "Мория — Гоблины-разведчики",
+    "desc": "Moria Goblins Prowlers",
+    "price": 1000,
+    "photo_url": "/product_photos/161.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 162,
+    "title": "Мория — Гроглоб",
+    "desc": "Moria Goblins Groblog",
+    "price": 1000,
+    "photo_url": "/product_photos/162.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 163,
+    "title": "Джокер и Харли 310мм",
+    "desc": "Joker and Harley 310mm",
+    "price": 1000,
+    "photo_url": "/product_photos/163.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 164,
+    "title": "HeraldoSculpts — Мирко (нога вверх)",
+    "desc": "2025-01 HeraldoSculpts Mirko Leg Up",
+    "price": 1000,
+    "photo_url": "/product_photos/164.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 165,
+    "title": "Модель гранаты",
+    "desc": "prop-grenade-model files",
+    "price": 1000,
+    "photo_url": "/product_photos/165.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 166,
+    "title": "Боевой вопль — Подставка для благовоний",
+    "desc": "War Cry Incense Holder",
+    "price": 1000,
+    "photo_url": "/product_photos/166.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 167,
+    "title": "Серас Виктория — Hellsing Ultimate",
+    "desc": "Seras Victoria Fan Art From Hellsing Ultimate",
+    "price": 1000,
+    "photo_url": "/product_photos/167.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 168,
+    "title": "Уроборос (с поддержками)",
+    "desc": "Ouroboros (Pre Supported)",
+    "price": 1000,
+    "photo_url": "/product_photos/168.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 169,
+    "title": "Зелёный Фонарь",
+    "desc": "Green Lantern",
+    "price": 1000,
+    "photo_url": "/product_photos/169.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 170,
+    "title": "Дарт Вейдер (knightsoul)",
+    "desc": "Darth Vader by knightsoul",
+    "price": 1000,
+    "photo_url": "/product_photos/170.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 171,
+    "title": "Гоблин-шаман 03",
+    "desc": "03 Goblin Shaman",
+    "price": 1000,
+    "photo_url": "/product_photos/171.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 172,
+    "title": "Узор Судьбы (04.11.24)",
+    "desc": "Wood Elves - Spell Weaver (04.11.24)",
+    "price": 1000,
+    "photo_url": "/product_photos/172.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 173,
+    "title": "BrunoArt3D — Сестра битвы из Warhammer",
+    "desc": "BrunoArt3D-Sister of Battle from Warhammer nsfw",
+    "price": 1000,
+    "photo_url": "/product_photos/173.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 174,
+    "title": "Элитные винтовки — ЗЛОДЕЙ",
+    "desc": "VILLAIN ELITE RIFLES",
+    "price": 1000,
+    "photo_url": "/product_photos/174.jpg",
+    "category": "Оружие",
+    "rating": 4.5
+  },
+  {
+    "id": 175,
+    "title": "Пикки",
+    "desc": "Cat Maid Mortar - Pikky",
+    "price": 1000,
+    "photo_url": "/product_photos/175.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 176,
+    "title": "Юмей",
+    "desc": "Yumei",
+    "price": 1000,
+    "photo_url": "/product_photos/176.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 177,
+    "title": "Шима Рин",
+    "desc": "Shima Rin STL",
+    "price": 1000,
+    "photo_url": "/product_photos/177.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 178,
+    "title": "STLCollectables",
+    "desc": "Pepsi-chan - STLCollectables",
+    "price": 1000,
+    "photo_url": "/product_photos/178.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 179,
+    "title": "Йога — Башня-кости",
+    "desc": "Yoga Skeleton Dice Tower @Print3DWorld",
+    "price": 1000,
+    "photo_url": "/product_photos/179.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 180,
+    "title": "Снуп Догг",
+    "desc": "Snoop Dogg",
+    "price": 1000,
+    "photo_url": "/product_photos/180.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 181,
+    "title": "Тьма",
+    "desc": "Azerama - Darkness",
+    "price": 1000,
+    "photo_url": "/product_photos/181.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 182,
+    "title": "Наруто — Хината",
+    "desc": "3Dmoonn - Naruto - Hinata",
+    "price": 1000,
+    "photo_url": "/product_photos/182.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 183,
+    "title": "Марио Карт!!",
+    "desc": "Mario Kart!! @Print3DWorld",
+    "price": 1000,
+    "photo_url": "/product_photos/183.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 184,
+    "title": "Дейноних — Диорама (04.08.24)",
+    "desc": "Saurian Starhost - Deinonychus Diorama (04.08.24)",
+    "price": 1000,
+    "photo_url": "/product_photos/184.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 185,
+    "title": "Nerikson — Геракл (бюст)",
+    "desc": "Nerikson Heracles Bust t.me MOXOMOR aka",
+    "price": 1000,
+    "photo_url": "/product_photos/185.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 186,
+    "title": "Ангел 180 мм",
+    "desc": "Angel 180 mm",
+    "price": 1000,
+    "photo_url": "/product_photos/186.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 187,
+    "title": "Эрза Скарлет — Крылья Фейри Тейл",
+    "desc": "Erza Scarlet From Fairy Tail Wing Cosplay @stl for Home",
+    "price": 1000,
+    "photo_url": "/product_photos/187.jpg",
+    "category": "Игровая техника",
+    "rating": 4.5
+  },
+  {
+    "id": 188,
+    "title": "ТЕНЕВАЯ ЛУНА (Токусацу)",
+    "desc": "SHADOW MOON ( TOKUSATSU )",
+    "price": 1000,
+    "photo_url": "/product_photos/188.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 189,
+    "title": "Бэтмен 1966 — Бюст 262мм",
+    "desc": "B3DSERK - Batman 1966 Bust 262mm (Chitubox Pre Supported)",
+    "price": 1000,
+    "photo_url": "/product_photos/189.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 190,
+    "title": "@Pixel 3D — Архангел",
+    "desc": "@Pixel 3D STL Archangel",
+    "price": 1000,
+    "photo_url": "/product_photos/190.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 191,
+    "title": "3Dmoonn — Йоруичи +",
+    "desc": "3Dmoonn Yoruichi +NSFW",
+    "price": 1000,
+    "photo_url": "/product_photos/191.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 192,
+    "title": "Джейн Доу",
+    "desc": "Chuya Factory -  Jane Doe",
+    "price": 1000,
+    "photo_url": "/product_photos/192.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 193,
+    "title": "Лесные друзья — Набор от Pawpular Prints",
+    "desc": "Forest Friends Multi-Pack by Pawpular Prints",
+    "price": 1000,
+    "photo_url": "/product_photos/193.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 194,
+    "title": "Эмодзи Элементы — pawpular prints",
+    "desc": "Emoji Elements  pawpular prints",
+    "price": 1000,
+    "photo_url": "/product_photos/194.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 195,
+    "title": "С ДНЁМ СВЯТОГО ВАЛЕНТИНА",
+    "desc": "HAPPY VALENTINE",
+    "price": 1000,
+    "photo_url": "/product_photos/195.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 196,
+    "title": "Гоку против Ууба",
+    "desc": "Goku vs Uub@STL HEAVEN",
+    "price": 1000,
+    "photo_url": "/product_photos/196.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 197,
+    "title": "h3LL — Танатос (скульптура и бюст)",
+    "desc": "h3LL creator Thanatos Sculpture and Bust t.me MOXOMOR aka",
+    "price": 1000,
+    "photo_url": "/product_photos/197.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 198,
+    "title": "h3LL — Разрушитель (скульптура и бюст)",
+    "desc": "h3LL creator Withers Sculpture and Bust t.me MOXOMOR aka",
+    "price": 1000,
+    "photo_url": "/product_photos/198.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 199,
+    "title": "Kill La Kill — Сацуки Кирюин",
+    "desc": "Dinamuuu 3D - Kill La Kill - Satsuki Kiryuin",
+    "price": 1000,
+    "photo_url": "/product_photos/199.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 200,
+    "title": "MQ-1 SEAGULL — General Atomics",
+    "desc": "The General Atomics MQ-1 UAF SEAGULL",
+    "price": 1000,
+    "photo_url": "/product_photos/200.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 201,
+    "title": "Рохан — Теодред",
+    "desc": "Rohan Theodred",
+    "price": 1000,
+    "photo_url": "/product_photos/201.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 202,
+    "title": "Рохан — Теоден (набор 01)",
+    "desc": "Rohan Theoden Pack 01",
+    "price": 1000,
+    "photo_url": "/product_photos/202.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 203,
+    "title": "Legion Miniatures — Декабрь 2022",
+    "desc": "Legion Miniatures December 2022 incl bonuses.part1",
+    "price": 1000,
+    "photo_url": "/product_photos/203.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 204,
+    "title": "ROP24 — Чума грызунов",
+    "desc": "ROP24 TheRodentsPlague ALL",
+    "price": 1000,
+    "photo_url": "/product_photos/204.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 205,
+    "title": "YR3Design — Бэтмен (бюст)",
+    "desc": "YR3DesignBatman Bust",
+    "price": 1000,
+    "photo_url": "/product_photos/205.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 206,
+    "title": "Бэтмен — Zur En Arrh",
+    "desc": "Batman Zur En Arrh",
+    "price": 1000,
+    "photo_url": "/product_photos/206.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 207,
+    "title": "Безумный Макс",
+    "desc": "KUTON - Madmax t.me MOXOMOR aka",
+    "price": 1000,
+    "photo_url": "/product_photos/207.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 208,
+    "title": "Рёмен Сукуна",
+    "desc": "LionRealm- Ryomen Sukuna",
+    "price": 1000,
+    "photo_url": "/product_photos/208.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 209,
+    "title": "Сатору Годжо",
+    "desc": "LionRealm- Satoro Gojo",
+    "price": 1000,
+    "photo_url": "/product_photos/209.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 210,
+    "title": "Dandadan — Момо Аясэ",
+    "desc": "Neko Figurines - Dandadan - Momo Ayase",
+    "price": 1000,
+    "photo_url": "/product_photos/210.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 211,
+    "title": "Zenless Zone Zero — Хошими Мияби",
+    "desc": "Neko Figurines - Zenless Zone Zero - Hoshimi Miyabi",
+    "price": 1000,
+    "photo_url": "/product_photos/211.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 212,
+    "title": "Батарейный отсек AA",
+    "desc": "AA Battery Magazine @Print3DWorld",
+    "price": 1000,
+    "photo_url": "/product_photos/212.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 213,
+    "title": "Батарейный отсек AAA",
+    "desc": "AAA Battery Magazine @Print3DWorld",
+    "price": 1000,
+    "photo_url": "/product_photos/213.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 214,
+    "title": "Liber Daemonica — Космический Волк",
+    "desc": "Liber Daemonica,2024 10,Space Wolf,wolves,guard,grey hunter,US+PS",
+    "price": 1000,
+    "photo_url": "/product_photos/214.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 215,
+    "title": "Футаба",
+    "desc": "Futaba@hehestl",
+    "price": 1000,
+    "photo_url": "/product_photos/215.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 216,
+    "title": "Blackrock Miniatures — Ретро-футуристический тяжёлый",
+    "desc": "Blackrock Miniatures Tremendously Retrofuturistic Heavy Plated Thicc",
+    "price": 1000,
+    "photo_url": "/product_photos/216.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 217,
+    "title": "DeadlyPrintStudio — Хелдрейк (Варп-огонь)",
+    "desc": "DeadlyPrintStudio Heldrake Warpfire base",
+    "price": 1000,
+    "photo_url": "/product_photos/217.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 218,
+    "title": "Bulkamancer — Принцесса Мононоке",
+    "desc": "Bulkamancer Sculpts San Princess Mononoke",
+    "price": 1000,
+    "photo_url": "/product_photos/218.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 219,
+    "title": "Фермерские друзья — Набор от Pawpular Prints",
+    "desc": "Farm Friends Multi-Pack by Pawpular Prints",
+    "price": 1000,
+    "photo_url": "/product_photos/219.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 220,
+    "title": "Эмодзи Элементы — pawpular prints",
+    "desc": "Emoji Elements  pawpular prints",
+    "price": 1000,
+    "photo_url": "/product_photos/220.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 221,
+    "title": "Лесные друзья — Набор от Pawpular Prints",
+    "desc": "Forest Friends Multi-Pack by Pawpular Prints",
+    "price": 1000,
+    "photo_url": "/product_photos/221.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 222,
+    "title": "Kaws — Рождественский стиль",
+    "desc": "Kaws Christmas Inspired ",
+    "price": 1000,
+    "photo_url": "/product_photos/222.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 223,
+    "title": "Девушка-бабочка",
+    "desc": "girl butterfly",
+    "price": 1000,
+    "photo_url": "/product_photos/223.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 224,
+    "title": "Девушка",
+    "desc": "girl-naked",
+    "price": 1000,
+    "photo_url": "/product_photos/224.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 225,
+    "title": "Девушка",
+    "desc": "girl-naked",
+    "price": 1000,
+    "photo_url": "/product_photos/225.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 226,
+    "title": "Wicked — Аполло Крид (бюст портрета)",
+    "desc": "Wicked 2024 03 Apollo Creed Portrait Bust Non Supported @stl zone",
+    "price": 1000,
+    "photo_url": "/product_photos/226.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 227,
+    "title": "Тьма — Бюст",
+    "desc": "B3DSERK - Darkness Bust (Images) @STLFTW @stl zone",
+    "price": 1000,
+    "photo_url": "/product_photos/227.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 228,
+    "title": "Моя Геройская Академия",
+    "desc": "Kinoko Komori - Boku no Hero",
+    "price": 1000,
+    "photo_url": "/product_photos/228.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 229,
+    "title": "Крик — Свобода",
+    "desc": "Scream Liberty",
+    "price": 1000,
+    "photo_url": "/product_photos/229.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 230,
+    "title": "Киборг",
+    "desc": "cyborg",
+    "price": 1000,
+    "photo_url": "/product_photos/230.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 231,
+    "title": "Спинозавр — Диорама",
+    "desc": "Spinosaurus Diorama",
+    "price": 1000,
+    "photo_url": "/product_photos/231.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 232,
+    "title": "Маска Гэндзи",
+    "desc": "Genji Mask @Print3DWorld",
+    "price": 1000,
+    "photo_url": "/product_photos/232.jpg",
+    "category": "Косплей",
+    "rating": 4.5
+  },
+  {
+    "id": 233,
+    "title": "Assassin's Creed",
+    "desc": "Assassins Creed1",
+    "price": 1000,
+    "photo_url": "/product_photos/233.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 234,
+    "title": "Король Мёртвых — Властелин Колец",
+    "desc": "3135 - King of the Dead Lord of the Rings",
+    "price": 1000,
+    "photo_url": "/product_photos/234.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 235,
+    "title": "Скелетор",
+    "desc": "stylized-skeletor",
+    "price": 1000,
+    "photo_url": "/product_photos/235.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 236,
+    "title": "Лавкрафт",
+    "desc": "Lovecraft",
+    "price": 1000,
+    "photo_url": "/product_photos/236.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 237,
+    "title": "Марио — Книжный уголок",
+    "desc": "Mario Book Nook @Print3DWorld",
+    "price": 1000,
+    "photo_url": "/product_photos/237.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 238,
+    "title": "Фалькор — Книжный уголок",
+    "desc": "Falkor Book Nook @Print3DWorld",
+    "price": 1000,
+    "photo_url": "/product_photos/238.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 239,
+    "title": "Edgerunners — Люси и Дэвид",
+    "desc": "Bulkamancer - Edgerunners - Lucy and David",
+    "price": 1000,
+    "photo_url": "/product_photos/239.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 240,
+    "title": "Soarez 3D — Мэри Джейн (Веномизированная)",
+    "desc": "Soarez 3d Mary Jane Venomized",
+    "price": 1000,
+    "photo_url": "/product_photos/240.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 241,
+    "title": "hematic-quenchseekers-20230305",
+    "desc": "hematic-quenchseekers-20230305",
+    "price": 1000,
+    "photo_url": "/product_photos/241.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 242,
+    "title": "09 Кладбищенские Базы от Alguien",
+    "desc": "09 GRAVEYARD Bases by Alguien",
+    "price": 1000,
+    "photo_url": "/product_photos/242.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 243,
+    "title": "Лара Крофт",
+    "desc": "ZEZ Studios - Lara Croft",
+    "price": 1000,
+    "photo_url": "/product_photos/243.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 244,
+    "title": "202201 — Культ Голода",
+    "desc": "Loot Studios - 202201 - Cult of Hunger - Objects",
+    "price": 1000,
+    "photo_url": "/product_photos/244.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 245,
+    "title": "21 — Глубокий космос (Научная фантастика)",
+    "desc": "21 Deep Space Madness (Sci-fi) (May:23).001",
+    "price": 1000,
+    "photo_url": "/product_photos/245.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 246,
+    "title": "Могучий против Всё",
+    "desc": "Might vs Allfo",
+    "price": 1000,
+    "photo_url": "/product_photos/246.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 247,
+    "title": "Девушка-волк (фурри)",
+    "desc": "wolf-girl-furry",
+    "price": 1000,
+    "photo_url": "/product_photos/247.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 248,
+    "title": "Виви 2022 STL FINAL",
+    "desc": "Vivi 2022 STL FINAL@hehestl",
+    "price": 1000,
+    "photo_url": "/product_photos/248.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 249,
+    "title": "Изображение",
+    "desc": "Img",
+    "price": 1000,
+    "photo_url": "/product_photos/249.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 250,
+    "title": "@Pixel 3D — Китана (Mortal Kombat)",
+    "desc": "@Pixel 3D STL Kitana Mortal Kombat",
+    "price": 1000,
+    "photo_url": "/product_photos/250.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 251,
+    "title": "Blue Spray — Томура Шигараки",
+    "desc": "Blue Spray – Tomura Shigaraki Sculpture – 3D Print Model STL",
+    "price": 1000,
+    "photo_url": "/product_photos/251.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 252,
+    "title": "Messias3D — Неллиэль",
+    "desc": "Messias3D Figure Nelliel Tu @stl for Home",
+    "price": 1000,
+    "photo_url": "/product_photos/252.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 253,
+    "title": "Суккуб-серис (qbarkz)",
+    "desc": "succubus-seris-qbarkz @stl for Home",
+    "price": 1000,
+    "photo_url": "/product_photos/253.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 254,
+    "title": "Вдова (Overwatch)",
+    "desc": "Widowmaker Overwatch @figuruwustl",
+    "price": 1000,
+    "photo_url": "/product_photos/254.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 255,
+    "title": "Неллиэль — Bleach",
+    "desc": "Nelliel Bleach",
+    "price": 1000,
+    "photo_url": "/product_photos/255.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 256,
+    "title": "Могучий против Всё",
+    "desc": "Might vs Allfo",
+    "price": 1000,
+    "photo_url": "/product_photos/256.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 257,
+    "title": "Красный Колпак",
+    "desc": "Red Hood",
+    "price": 1000,
+    "photo_url": "/product_photos/257.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 258,
+    "title": "Микаса Аккерман — Атака Титанов",
+    "desc": "Mikasa Ackerman Sexy from Attack on Titan",
+    "price": 1000,
+    "photo_url": "/product_photos/258.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 259,
+    "title": "Warhammer 40k",
+    "desc": "Warhammer 40k",
+    "price": 1000,
+    "photo_url": "/product_photos/259.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 260,
+    "title": "Ева",
+    "desc": "Eva",
+    "price": 1000,
+    "photo_url": "/product_photos/260.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 261,
+    "title": "Loot Studios — Научная фантастика 2023-6",
+    "desc": "Loot Studios Scifi -2023-6 mark of the hunter.part1",
+    "price": 1000,
+    "photo_url": "/product_photos/261.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 262,
+    "title": "Разрушенный дом Нормандии",
+    "desc": "normandy house destroyed",
+    "price": 1000,
+    "photo_url": "/product_photos/262.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 263,
+    "title": "Вуди и Вилки",
+    "desc": "Woody And Forky",
+    "price": 1000,
+    "photo_url": "/product_photos/263.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 264,
+    "title": "DBZ — Гогета (ЭКСКЛЮЗИВ)",
+    "desc": "DBZ Gogeta EXCLUSIVE",
+    "price": 1000,
+    "photo_url": "/product_photos/264.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  },
+  {
+    "id": 265,
+    "title": "Во все тяжкие — фигурки",
+    "desc": "breaking bad set figuras",
+    "price": 1000,
+    "photo_url": "/product_photos/265.jpg",
+    "category": "Фигурки",
+    "rating": 4.5
+  }
+]
