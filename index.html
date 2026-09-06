@@ -631,7 +631,7 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
-            transition: opacity 200ms ease, transform 200ms ease;
+            transition: opacity 200ms ease;
             filter: brightness(1.12) contrast(1.02);
         }
         .product-card:hover .product-art {
@@ -1566,31 +1566,25 @@
     <div class="bottom-safe"></div>
 
     <script>
-        const WebApp = (window.Telegram && window.Telegram.WebApp) ? window.Telegram.WebApp : {
-            ready() {},
-            expand() {},
-            sendData() {},
-            setBackgroundColor() {},
-            setHeaderColor() {},
-            initData: '',
-            colorScheme: 'dark'
-        };
+        const WebApp = window.Telegram && window.Telegram.WebApp;
 
         const ADMIN_ID = 483610970;
-        const tgUser = (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user);
+        const tgUser = WebApp && WebApp.initDataUnsafe && WebApp.initDataUnsafe.user;
         const userId = tgUser ? tgUser.id : null;
         const isAdmin = (userId === ADMIN_ID) || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
 
         const BG = '#070912';
         try {
-            WebApp.ready();
-            WebApp.expand();
-            WebApp.setBackgroundColor?.(BG);
-            WebApp.setHeaderColor?.(BG);
-            WebApp.onEvent?.('themeChanged', () => {
+            if (WebApp) {
+                WebApp.ready();
+                WebApp.expand();
                 WebApp.setBackgroundColor?.(BG);
                 WebApp.setHeaderColor?.(BG);
-            });
+                WebApp.onEvent?.('themeChanged', () => {
+                    WebApp.setBackgroundColor?.(BG);
+                    WebApp.setHeaderColor?.(BG);
+                });
+            }
         } catch (e) {}
 
         const ICONS = {
