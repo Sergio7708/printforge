@@ -644,43 +644,65 @@
             opacity: 0;
         }
         .media-badge,
-        .price-pill {
+        .stock-badge {
             position: absolute;
             z-index: 2;
             padding: 7px 11px;
             border-radius: 999px;
-            border: 1px solid rgba(255,255,255,0.10);
-            background: rgba(8,11,18,0.48);
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(8,11,18,0.55);
             backdrop-filter: blur(10px);
         }
         .media-badge {
             left: 12px;
             top: 12px;
-            color: var(--accent-2);
-            font-size: 10px;
+            color: #fff;
+            font-size: 11px;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.16em;
+            letter-spacing: 0.14em;
+            border-color: rgba(216,177,90,0.32);
+            background: linear-gradient(135deg, rgba(216,177,90,0.18), rgba(8,11,18,0.55));
         }
-        .price-pill {
-            left: 12px;
-            bottom: 12px;
-            color: #fff;
-            font-family: var(--font-heading);
-            font-weight: 700;
-            font-size: 17px;
-            box-shadow: 0 18px 30px rgba(0,0,0,0.20);
+        .stock-badge {
+            right: 12px;
+            top: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+        .stock-badge.in {
+            color: #6ee7a7;
+            border-color: rgba(110,231,167,0.32);
+            background: linear-gradient(135deg, rgba(55,215,159,0.18), rgba(8,11,18,0.55));
+        }
+        .stock-badge.out {
+            color: #ff8b8b;
+            border-color: rgba(255,139,139,0.32);
+            background: linear-gradient(135deg, rgba(231,76,60,0.22), rgba(8,11,18,0.55));
+        }
+        .stock-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: currentColor;
+            box-shadow: 0 0 8px currentColor;
         }
         .fav-btn {
             position: absolute;
             right: 12px;
-            top: 12px;
+            bottom: 12px;
             z-index: 2;
             width: 38px;
             height: 38px;
             border: 1px solid rgba(255,255,255,0.12);
             border-radius: 14px;
-            background: rgba(8,11,18,0.48);
+            background: rgba(8,11,18,0.55);
             color: rgba(255,255,255,0.72);
             display: grid;
             place-items: center;
@@ -728,6 +750,39 @@
             overflow: hidden;
             min-height: 38px;
         }
+        .price-block {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+            padding: 8px 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(216,177,90,0.22);
+            background: linear-gradient(135deg, rgba(216,177,90,0.08), rgba(8,11,18,0.30));
+            width: fit-content;
+            max-width: 100%;
+        }
+        .price-block .price-value {
+            font-family: var(--font-heading);
+            font-size: 22px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.01em;
+            line-height: 1;
+        }
+        .price-block .price-currency {
+            font-family: var(--font-heading);
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1;
+        }
+        .price-block .price-unit {
+            font-size: 11px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.10em;
+            margin-left: 4px;
+        }
         .product-meta {
             display: flex;
             align-items: center;
@@ -756,11 +811,11 @@
             stroke: var(--accent);
         }
         .add-btn {
-            height: 38px;
-            padding: 0 14px;
-            border: 1px solid rgba(216,177,90,0.32);
+            height: 42px;
+            padding: 0 16px;
+            border: 1px solid rgba(216,177,90,0.36);
             border-radius: 12px;
-            background: linear-gradient(135deg, rgba(216,177,90,0.22), rgba(97,215,255,0.08));
+            background: linear-gradient(135deg, rgba(216,177,90,0.26), rgba(97,215,255,0.10));
             color: #fff;
             display: inline-flex;
             align-items: center;
@@ -768,7 +823,8 @@
             gap: 6px;
             cursor: pointer;
             font-size: 13px;
-            font-weight: 700;
+            font-weight: 800;
+            letter-spacing: 0.02em;
             transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
         }
         .add-btn:hover {
@@ -1659,6 +1715,7 @@
             .replace(/'/g, '&#39;');
         const escapeXml = (str = '') => escapeHtml(str).replace(/\n/g, ' ');
         const formatRub = (value) => `${Number(value || 0).toLocaleString('ru-RU')} ₽`;
+        const priceParts = (value) => ({ value: Number(value || 0).toLocaleString('ru-RU'), currency: '₽' });
         const getRating = (item) => Number(item.rating || 4.5);
 
         function categoryName(category) {
@@ -2075,25 +2132,32 @@
                 const cat = categoryName(p.category);
                 const imgSrc = getProductImage(p);
                 const fallbackSrc = getProductArt(p);
+                const pp = priceParts(p.price);
+                const stockClass = (p.stock === undefined || p.stock < 0) ? 'in' : (p.stock > 0 ? 'in' : 'out');
+                const stockLabel = stockClass === 'in' ? 'в наличии' : 'нет в наличии';
                 return `
                     <article class="product-card ${index === 0 ? 'featured' : ''}" onclick="openDetail(${p.id})" style="animation-delay:${(index % 8) * 0.025}s">
                         <div class="product-media">
                             <img class="product-art loading" src="${imgSrc}" alt="${escapeHtml(p.title || 'Модель')}" loading="lazy" data-fallback="${escapeHtml(fallbackSrc)}" onerror="handleImageError(this)" onload="handleImageLoad(this)">
                             <div class="media-badge">${escapeHtml(cat)}</div>
-                            <div class="price-pill">${escapeHtml(formatRub(p.price))}</div>
+                            <div class="stock-badge ${stockClass}">${escapeHtml(stockLabel)}</div>
                             <button class="fav-btn ${isFav ? 'active' : ''}" onclick="event.stopPropagation(); toggleFav(${p.id})" aria-label="Избранное">
                                 ${ICONS.heart}
                             </button>
                         </div>
                         <div class="product-body">
                             <h3 class="product-title">${escapeHtml(p.title || 'Без названия')}</h3>
+                            <div class="price-block">
+                                <span class="price-value">${escapeHtml(pp.value)}</span>
+                                <span class="price-currency">${escapeHtml(pp.currency)}</span>
+                                <span class="price-unit">за модель</span>
+                            </div>
                             <p class="product-desc">${escapeHtml(p.desc || 'Качественная 3D-модель под печать и покраску.')}</p>
                             <div class="product-meta">
                                 <div class="rating-chip">
                                     ${ICONS.star}
                                     <span>${getRating(p).toFixed(1)}</span>
                                 </div>
-                                ${p.stock !== undefined && p.stock >= 0 ? `<span style="font-size:11px;color:${p.stock > 0 ? 'var(--accent)' : '#e74c3c'};margin-left:auto;padding-right:4px;">${p.stock > 0 ? '✓ в наличии' : 'нет'}</span>` : ''}
                                 <button class="add-btn ${inCart ? 'in-cart' : ''}" onclick="event.stopPropagation(); addToCart(${p.id})" aria-label="В корзину">
                                     ${inCart ? ICONS.check + '<span>В корзине</span>' : ICONS.plus + '<span>В корзину</span>'}
                                 </button>
