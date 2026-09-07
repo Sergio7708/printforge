@@ -1018,6 +1018,73 @@
             font-size: 15px;
             line-height: 1.8;
         }
+        .detail-price-hint {
+            margin-top: 4px;
+            font-size: 12px;
+            color: var(--muted);
+            letter-spacing: 0.01em;
+        }
+        .complexity-selector {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 8px;
+            margin: 4px 0 2px;
+        }
+        .complexity-chip {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 4px;
+            padding: 10px 12px;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(8,11,18,0.45);
+            color: var(--text);
+            cursor: pointer;
+            transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
+            text-align: left;
+        }
+        .complexity-chip:hover { border-color: rgba(216,177,90,0.30); }
+        .complexity-chip:active { transform: scale(0.97); }
+        .complexity-chip.active {
+            border-color: rgba(216,177,90,0.55);
+            background: linear-gradient(135deg, rgba(216,177,90,0.18), rgba(8,11,18,0.45));
+        }
+        .complexity-chip .chip-label {
+            font-family: var(--font-heading);
+            font-size: 13px;
+            font-weight: 800;
+            color: #fff;
+        }
+        .complexity-chip .chip-price {
+            font-size: 12px;
+            color: var(--accent);
+            font-weight: 700;
+        }
+        .complexity-chip.active .chip-price { color: #fff; }
+        .cart-complexity {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin: 6px 0;
+        }
+        .mini-complexity-chip {
+            padding: 5px 9px;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(8,11,18,0.45);
+            color: var(--muted);
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: border-color 140ms ease, color 140ms ease, background 140ms ease;
+        }
+        .mini-complexity-chip:hover { border-color: rgba(216,177,90,0.30); color: #fff; }
+        .mini-complexity-chip.active {
+            border-color: rgba(216,177,90,0.55);
+            background: rgba(216,177,90,0.18);
+            color: #fff;
+        }
         .detail-rating {
             display: flex;
             align-items: center;
@@ -1689,7 +1756,15 @@
         };
 
         let products = [];
-        let cart = (() => { try { return JSON.parse(localStorage.getItem('miniapp_cart') || '{}'); } catch { return {}; } })();
+        let cart = (() => {
+            try {
+                const raw = JSON.parse(localStorage.getItem('miniapp_cart') || '{}');
+                const out = {};
+                for (const k of Object.keys(raw)) out[k] = cartEntry(raw[k]);
+                return out;
+            } catch { return {}; }
+        })();
+        let currentDetailComplexity = 'base';
         let favorites = (() => { try { return JSON.parse(localStorage.getItem('miniapp_favs') || '[]'); } catch { return []; } })();
         let currentCategory = 'all';
         let favOnly = false;
@@ -1716,6 +1791,18 @@
         const escapeXml = (str = '') => escapeHtml(str).replace(/\n/g, ' ');
         const formatRub = (value) => `${Number(value || 0).toLocaleString('ru-RU')} ₽`;
         const priceParts = (value) => ({ value: Number(value || 0).toLocaleString('ru-RU'), currency: '₽' });
+
+        const COMPLEXITY = [
+            { id: 'base',   label: 'Базовая',   mult: 1.0, hint: 'печать + грунт + базовый цвет' },
+            { id: 'detail', label: 'Детальная', mult: 2.5, hint: 'чистая покраска, проработка мелких деталей' },
+            { id: 'max',    label: 'Макси',     mult: 4.0, hint: 'полная детализация, патина, подставка, блистер' },
+        ];
+        const complexityById = (id) => COMPLEXITY.find(c => c.id === id) || COMPLEXITY[0];
+        const priceFor = (base, complexityId) => Math.round(Number(base || 0) * complexityById(complexityId).mult);
+        const cartEntry = (raw) => {
+            if (raw && typeof raw === 'object' && 'qty' in raw) return { qty: num(raw.qty) || 1, complexity: raw.complexity || 'base' };
+            return { qty: num(raw) || 1, complexity: 'base' };
+        };
         const getRating = (item) => Number(item.rating || 4.5);
 
         function categoryName(category) {
@@ -2187,12 +2274,22 @@
             const p = products.find(x => x.id === id);
             if (!p) return;
             currentDetailId = id;
+            currentDetailComplexity = (cart[id] && cart[id].complexity) || 'base';
             const cat = categoryName(p.category);
             const isFav = favorites.includes(p.id);
             const inCart = !!cart[p.id];
             const rating = getRating(p);
             const imgSrc = getProductImage(p);
             const fallbackSrc = getProductArt(p);
+            const basePrice = num(p.price);
+            const priceForLevel = (cId) => priceFor(basePrice, cId);
+            const complexityChips = COMPLEXITY.map(c => {
+                const active = c.id === currentDetailComplexity;
+                return `<button type="button" class="complexity-chip ${active ? 'active' : ''}" data-cid="${c.id}" onclick="pickDetailComplexity('${c.id}')">
+                    <span class="chip-label">${escapeHtml(c.label)}</span>
+                    <span class="chip-price">${escapeHtml(formatRub(priceForLevel(c.id)))}</span>
+                </button>`;
+            }).join('');
 
             el('detailContent').innerHTML = `
                 <div class="detail-layout">
@@ -2202,9 +2299,11 @@
                     <div class="detail-cat">${escapeHtml(cat)}</div>
                     <div>
                         <h3 class="detail-title">${escapeHtml(p.title || 'Без названия')}</h3>
-                        <div class="detail-price">${escapeHtml(formatRub(p.price))}</div>
+                        <div class="detail-price" id="detailPrice">${escapeHtml(formatRub(priceForLevel(currentDetailComplexity)))}</div>
+                        <div class="detail-price-hint" id="detailPriceHint">${escapeHtml(complexityById(currentDetailComplexity).hint)}</div>
                     </div>
                     <p class="detail-desc">${escapeHtml(p.desc || 'Качественная 3D-модель под печать, покраску и коллекционную витрину.')}</p>
+                    <div class="complexity-selector" id="detailComplexitySelector">${complexityChips}</div>
                     <div class="detail-rating">
                         ${getStars(rating)}
                         <span>${rating.toFixed(1)} / 5</span>
@@ -2217,7 +2316,7 @@
                         <div class="spec"><span>Опции</span><strong>Под покраску и сборку</strong></div>
                     </div>
                     <div class="detail-actions">
-                        <button class="primary-btn" onclick="addToCart(${p.id}); closeDetail();">${inCart ? 'В корзине' : 'В корзину'}</button>
+                        <button class="primary-btn" onclick="addDetailToCart()">${inCart ? 'Добавить ещё' : 'В корзину'}</button>
                         ${isAdmin ? `
                         <button class="secondary-btn" onclick="deleteProduct(${p.id});">🗑 Удалить</button>
                         <button class="secondary-btn" onclick="editProduct(${p.id});">✏️ Редактировать</button>
@@ -2232,6 +2331,37 @@
             tgBack(true, closeDetail);
         }
 
+        function pickDetailComplexity(cid) {
+            if (!currentDetailId) return;
+            currentDetailComplexity = cid;
+            const sel = el('detailComplexitySelector');
+            if (sel) {
+                sel.querySelectorAll('.complexity-chip').forEach(chip => {
+                    chip.classList.toggle('active', chip.dataset.cid === cid);
+                });
+            }
+            const p = products.find(x => x.id === currentDetailId);
+            if (!p) return;
+            const newPrice = formatRub(priceFor(num(p.price), cid));
+            const priceEl = el('detailPrice');
+            const hintEl = el('detailPriceHint');
+            if (priceEl) priceEl.textContent = newPrice;
+            if (hintEl) hintEl.textContent = complexityById(cid).hint;
+            tgHaptic();
+        }
+
+        function addDetailToCart() {
+            if (!currentDetailId) return;
+            const id = currentDetailId;
+            const entry = cart[id] || { qty: 0, complexity: 'base' };
+            entry.qty += 1;
+            entry.complexity = currentDetailComplexity;
+            cart[id] = entry;
+            saveCart();
+            closeDetail();
+            showToast('Добавлено в корзину');
+        }
+
         function closeDetail() {
             currentDetailId = null;
             el('detailOverlay').classList.remove('open');
@@ -2241,7 +2371,9 @@
 
         function addToCart(id) {
             tgHaptic();
-            cart[id] = (cart[id] || 0) + 1;
+            const entry = cart[id] || { qty: 0, complexity: 'base' };
+            entry.qty += 1;
+            cart[id] = entry;
             saveCart();
             showToast('Добавлено в корзину');
         }
@@ -2253,8 +2385,20 @@
         }
 
         function changeQty(id, delta) {
-            cart[id] = (cart[id] || 0) + delta;
-            if (cart[id] <= 0) delete cart[id];
+            const entry = cart[id] || { qty: 0, complexity: 'base' };
+            entry.qty += delta;
+            if (entry.qty <= 0) {
+                delete cart[id];
+            } else {
+                cart[id] = entry;
+            }
+            saveCart();
+        }
+
+        function setCartComplexity(id, complexityId) {
+            const entry = cart[id] || { qty: 1, complexity: 'base' };
+            entry.complexity = complexityId || 'base';
+            cart[id] = entry;
             saveCart();
         }
 
@@ -2304,16 +2448,27 @@
             const itemsHtml = ids.map(id => {
                 const p = products.find(x => x.id === Number(id));
                 if (!p) return '';
-                const qty = num(cart[id]);
-                subtotal += num(p.price) * qty;
+                const entry = cartEntry(cart[id]);
+                const qty = entry.qty;
+                const cId = entry.complexity;
+                const linePrice = priceFor(num(p.price), cId);
+                const lineTotal = linePrice * qty;
+                subtotal += lineTotal;
                 const imgSrc = getProductImage(p);
                 const fallbackSrc = getProductArt(p);
+                const complexityChips = COMPLEXITY.map(c => `
+                    <button type="button" class="mini-complexity-chip ${c.id === cId ? 'active' : ''}"
+                        onclick="setCartComplexity(${p.id}, '${c.id}'); openCart();">
+                        ${escapeHtml(c.label)}
+                    </button>
+                `).join('');
                 return `
                     <div class="cart-item">
                         <div class="cart-thumb"><img src="${imgSrc}" alt="${escapeHtml(p.title || 'Модель')}" loading="lazy" data-fallback="${escapeHtml(fallbackSrc)}" onerror="handleImageError(this)" onload="handleImageLoad(this)"></div>
                         <div>
                             <h4 class="cart-item-title">${escapeHtml(p.title || 'Без названия')}</h4>
-                            <div class="cart-item-price">${escapeHtml(formatRub(p.price))} × ${qty} = ${escapeHtml(formatRub(num(p.price) * qty))}</div>
+                            <div class="cart-item-price">${escapeHtml(formatRub(linePrice))} × ${qty} = <strong>${escapeHtml(formatRub(lineTotal))}</strong></div>
+                            <div class="cart-complexity">${complexityChips}</div>
                             <div class="qty">
                                 <button onclick="changeQty(${p.id}, -1)" aria-label="Минус">${ICONS.minus || '<svg viewBox="0 0 24 24"><path d="M5 12h14"></path></svg>'}</button>
                                 <strong>${qty}</strong>
@@ -2354,9 +2509,14 @@
             const rows = ids.map(id => {
                 const p = products.find(x => x.id === Number(id));
                 if (!p) return '';
-                const qty = num(cart[id]);
-                subtotal += num(p.price) * qty;
-                return `<div class="order-summary-row"><span>${escapeHtml(p.title || 'Модель')} × ${qty}</span><span>${escapeHtml(formatRub(num(p.price) * qty))}</span></div>`;
+                const entry = cartEntry(cart[id]);
+                const qty = entry.qty;
+                const cId = entry.complexity;
+                const cLabel = complexityById(cId).label;
+                const linePrice = priceFor(num(p.price), cId);
+                const lineTotal = linePrice * qty;
+                subtotal += lineTotal;
+                return `<div class="order-summary-row"><span>${escapeHtml(p.title || 'Модель')} <em style="color: var(--accent); font-style: normal;">· ${escapeHtml(cLabel)}</em> × ${qty}</span><span>${escapeHtml(formatRub(lineTotal))}</span></div>`;
             }).join('');
             const delivery = subtotal >= 3000 ? 0 : 300;
             const total = subtotal + delivery;
@@ -2459,7 +2619,10 @@
 
             const items = Object.keys(cart).map(id => {
                 const p = products.find(x => x.id === Number(id));
-                return p ? { id: p.id, title: p.title, price: num(p.price), qty: num(cart[id]) } : null;
+                if (!p) return null;
+                const entry = cartEntry(cart[id]);
+                const linePrice = priceFor(num(p.price), entry.complexity);
+                return { id: p.id, title: p.title, price: linePrice, qty: entry.qty, complexity: entry.complexity };
             }).filter(Boolean);
 
             if (!items.length) return showToast('Корзина пуста');
