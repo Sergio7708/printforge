@@ -463,6 +463,12 @@
             background: rgba(255,255,255,0.02);
             filter: brightness(1.1) contrast(1.02);
         }
+        model-viewer.hero-preview {
+            --poster-color: transparent;
+            background: transparent;
+            filter: none;
+            touch-action: pan-y;
+        }
         .hero-meta {
             margin-top: 12px;
             display: grid;
@@ -1447,8 +1453,7 @@
         .hero { gap: 20px; }
         .hero-copy { min-height: 0; padding: 24px; }
         .hero-title { font-size: clamp(28px, 3.6vw, 48px); }
-        .hero-stats, .hero-mini-wrap, .rating-chip, .detail-rating,
-        .complexity-selector, .cart-complexity { display: none !important; }
+        .rating-chip, .detail-rating { display: none !important; }
         .product-media { aspect-ratio: 1 / 1; padding-top: 36px; }
         .product-art { filter: none !important; object-fit: contain; }
         .media-badge { top: 10px; left: 12px; max-width: calc(100% - 24px); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 10px; letter-spacing: .06em; }
@@ -1575,7 +1580,7 @@
                 <div class="stage-glow b"></div>
                 <div class="hero-stack">
                     <div class="hero-main floaty">
-                        <img id="heroPreview" class="hero-preview" alt="Превью модели">
+                        <model-viewer id="heroPreview" class="hero-preview" src="Zayka.glb" alt="3D-модель" camera-controls auto-rotate rotation-per-second="16deg" interaction-prompt="none" shadow-intensity="0.9" exposure="1.05" environment-image="neutral" reveal="interaction" loading="lazy" poster=""></model-viewer>
                         <div class="hero-meta">
                             <div class="cat" id="heroCat">Каталог</div>
                             <h2 id="heroTitle">Загрузка каталога…</h2>
@@ -1832,7 +1837,11 @@
         const formatRub = (value) => `${Number(value || 0).toLocaleString('ru-RU')} ₽`;
         const priceParts = (value) => ({ value: Number(value || 0).toLocaleString('ru-RU'), currency: '₽' });
 
-        const COMPLEXITY = [{ id: 'base', label: 'Модель', mult: 1, hint: 'Физическое изделие. Размер и комплектацию уточняем при согласовании.' }];
+        const COMPLEXITY = [
+            { id: 'base',   label: 'Базовая',   mult: 1.0, hint: 'печать + грунт + базовый цвет' },
+            { id: 'detail', label: 'Детальная', mult: 2.5, hint: 'чистая покраска, проработка мелких деталей' },
+            { id: 'max',    label: 'Макси',     mult: 4.0, hint: 'полная детализация, патина, подставка, блистер' },
+        ];
         const complexityById = (id) => COMPLEXITY.find(c => c.id === id) || COMPLEXITY[0];
         const priceFor = (base, complexityId) => Math.round(Number(base || 0) * complexityById(complexityId).mult);
         function cartEntry(raw) {
@@ -2200,11 +2209,13 @@
             const imgSrc = getProductImage(product);
             const fallbackSrc = getProductArt(product);
             const heroImg = el('heroPreview');
-            heroImg.src = imgSrc;
-            heroImg.alt = product.title || 'Модель';
-            heroImg.dataset.fallback = fallbackSrc;
-            heroImg.onerror = () => handleImageError(heroImg);
-            heroImg.onload = () => handleImageLoad(heroImg);
+            if (heroImg && heroImg.tagName === 'IMG') {
+                heroImg.src = imgSrc;
+                heroImg.alt = product.title || 'Модель';
+                heroImg.dataset.fallback = fallbackSrc;
+                heroImg.onerror = () => handleImageError(heroImg);
+                heroImg.onload = () => handleImageLoad(heroImg);
+            }
             el('heroCat').textContent = categoryName(product.category);
             el('heroTitle').textContent = product.title || 'Модель из каталога';
             el('heroPrice').textContent = formatRub(product.price);
@@ -2780,6 +2791,7 @@
                 });
         }
     </script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@4.1.0/dist/model-viewer.min.js"></script>
 </body>
 </html>
 
