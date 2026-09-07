@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>3D Каталог — Neon Forge</title>
+    <title>3Д Моделист Конструктор — Каталог моделей</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1442,6 +1442,46 @@
                 scroll-behavior: auto !important;
             }
         }
+    
+        /* Polish: physical models focus, mobile density, real badges */
+        .hero { gap: 20px; }
+        .hero-copy { min-height: 0; padding: 24px; }
+        .hero-title { font-size: clamp(28px, 3.6vw, 48px); }
+        .hero-stats, .hero-mini-wrap, .rating-chip, .detail-rating,
+        .complexity-selector, .cart-complexity { display: none !important; }
+        .product-media { aspect-ratio: 1 / 1; padding-top: 36px; }
+        .product-art { filter: none !important; object-fit: contain; }
+        .media-badge { top: 10px; left: 12px; max-width: calc(100% - 24px); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 10px; letter-spacing: .06em; }
+        .stock-badge { top: auto !important; bottom: 12px !important; right: auto !important; left: 12px !important; font-size: 10px; }
+        .stock-badge.order { color: #e2c88c !important; border-color: rgba(226, 200, 140, 0.35) !important; background: linear-gradient(135deg, rgba(216, 177, 90, 0.2), rgba(8, 11, 18, 0.7)) !important; }
+        .product-body { gap: 12px; padding: 16px; }
+        .product-title { font-size: 16px; line-height: 1.4; min-height: 45px; }
+        .price-block { padding: 0 !important; background: none !important; border: 0 !important; flex-wrap: wrap; }
+        .price-block .price-value { font-size: 25px; }
+        .price-unit { text-transform: none !important; letter-spacing: 0 !important; }
+        .product-meta { width: 100%; }
+        .add-btn { width: 100%; min-height: 44px; background: #d8b15a !important; color: #14141a !important; }
+        .add-btn.in-cart { color: #ffffff !important; }
+        button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid #d8b15a; outline-offset: 3px; }
+        .detail-price-hint { line-height: 1.5; }
+        @media (max-width: 760px) {
+            .hero-stage { display: none !important; }
+            .hero { display: block !important; }
+            .hero-copy { padding: 18px !important; }
+            .hero-title { font-size: 28px !important; }
+            .grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 10px !important; }
+            .product-card { border-radius: 16px !important; }
+            .product-body { padding: 12px !important; }
+            .product-desc { display: none !important; }
+            .price-block .price-value { font-size: 21px !important; }
+            .price-unit { width: 100% !important; margin-left: 0 !important; }
+        }
+        @media (max-width: 360px) {
+            .grid { grid-template-columns: 1fr !important; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+        }
     </style>
 </head>
 <body>
@@ -1458,7 +1498,7 @@
                     </div>
                     <div class="brand-text">
                         <h1>3D Каталог</h1>
-                        <span>Neon Forge / модели и фигурки</span>
+                        <span>3Д Моделист Конструктор · физические модели</span>
                     </div>
                 </div>
 
@@ -1546,7 +1586,7 @@
                         <div class="hero-mini floaty" style="animation-delay: .2s;">
                             <span>В каталоге</span>
                             <strong id="heroMiniCount">—</strong>
-                            <i>актуальные товары из базы и демо-запас на случай пустой БД</i>
+                            <i>Физические модели для коллекции и подарка</i>
                         </div>
                         <div class="hero-mini floaty" style="animation-delay: .45s;">
                             <span>Избранное</span>
@@ -1792,18 +1832,14 @@
         const formatRub = (value) => `${Number(value || 0).toLocaleString('ru-RU')} ₽`;
         const priceParts = (value) => ({ value: Number(value || 0).toLocaleString('ru-RU'), currency: '₽' });
 
-        const COMPLEXITY = [
-            { id: 'base',   label: 'Базовая',   mult: 1.0, hint: 'печать + грунт + базовый цвет' },
-            { id: 'detail', label: 'Детальная', mult: 2.5, hint: 'чистая покраска, проработка мелких деталей' },
-            { id: 'max',    label: 'Макси',     mult: 4.0, hint: 'полная детализация, патина, подставка, блистер' },
-        ];
+        const COMPLEXITY = [{ id: 'base', label: 'Модель', mult: 1, hint: 'Физическое изделие. Размер и комплектацию уточняем при согласовании.' }];
         const complexityById = (id) => COMPLEXITY.find(c => c.id === id) || COMPLEXITY[0];
         const priceFor = (base, complexityId) => Math.round(Number(base || 0) * complexityById(complexityId).mult);
-        const cartEntry = (raw) => {
-            if (raw && typeof raw === 'object' && 'qty' in raw) return { qty: num(raw.qty) || 1, complexity: raw.complexity || 'base' };
-            return { qty: num(raw) || 1, complexity: 'base' };
-        };
-        const getRating = (item) => Number(item.rating || 4.5);
+        function cartEntry(raw) {
+            const value = Number(raw && typeof raw === 'object' ? raw.qty : raw);
+            return { qty: Number.isFinite(value) ? Math.max(1, Math.floor(value)) : 1, complexity: 'base' };
+        }
+        const getRating = (item) => Number(item.rating || 0);
 
         function categoryName(category) {
             const raw = (category || 'Прочее').toString().trim();
@@ -2179,7 +2215,7 @@
             const totalCount = products.length;
             const categoriesCount = new Set(products.map(p => categoryName(p.category))).size;
             const averageRating = products.length ? (products.reduce((s, p) => s + getRating(p), 0) / products.length) : 0;
-            const cartCount = Object.values(cart).reduce((a, b) => a + num(b), 0);
+            const cartCount = Object.values(cart).reduce((a, b) => a + cartEntry(b).qty, 0);
             const favCount = favorites.length;
 
             el('productCount').textContent = visibleCount;
@@ -2220,8 +2256,8 @@
                 const imgSrc = getProductImage(p);
                 const fallbackSrc = getProductArt(p);
                 const pp = priceParts(p.price);
-                const stockClass = (p.stock === undefined || p.stock < 0) ? 'in' : (p.stock > 0 ? 'in' : 'out');
-                const stockLabel = stockClass === 'in' ? 'в наличии' : 'нет в наличии';
+                const stockClass = (p.stock == null || p.stock < 0) ? 'order' : (p.stock > 0 ? 'in' : 'out');
+                const stockLabel = stockClass === 'order' ? 'Под заказ' : (stockClass === 'in' ? 'В наличии' : 'Нет в наличии');
                 return `
                     <article class="product-card ${index === 0 ? 'featured' : ''}" onclick="openDetail(${p.id})" style="animation-delay:${(index % 8) * 0.025}s">
                         <div class="product-media">
@@ -2311,7 +2347,7 @@
                     <div class="detail-grid">
                         <div class="spec"><span>Тип</span><strong>${escapeHtml(cat)}</strong></div>
                         <div class="spec"><span>Материал</span><strong>SLA / FDM / Resin</strong></div>
-                        <div class="spec"><span>Форматы</span><strong>.stl / .obj / .step</strong></div>
+                        <div class="spec"><span>Товар</span><strong>Физическая модель, не STL-файл</strong></div>
                         <div class="spec"><span>Наличие</span><strong>${p.stock === undefined || p.stock < 0 ? 'под заказ' : p.stock > 0 ? `в наличии: ${p.stock} шт.` : 'нет'}</strong></div>
                         <div class="spec"><span>Опции</span><strong>Под покраску и сборку</strong></div>
                     </div>
