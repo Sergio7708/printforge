@@ -1,0 +1,1058 @@
+
+        const WebApp = window.Telegram && window.Telegram.WebApp;
+
+        const ADMIN_ID = 483610970;
+        const tgUser = WebApp && WebApp.initDataUnsafe && WebApp.initDataUnsafe.user;
+        const userId = tgUser ? tgUser.id : null;
+        const isAdmin = (userId === ADMIN_ID) || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
+        const BG = '#070912';
+        try {
+            if (WebApp) {
+                WebApp.ready();
+                WebApp.expand();
+                WebApp.setBackgroundColor?.(BG);
+                WebApp.setHeaderColor?.(BG);
+                WebApp.onEvent?.('themeChanged', () => {
+                    WebApp.setBackgroundColor?.(BG);
+                    WebApp.setHeaderColor?.(BG);
+                });
+            }
+        } catch (e) {}
+
+        const ICONS = {
+            plus: '<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg>',
+            minus: '<svg viewBox="0 0 24 24"><path d="M5 12h14"></path></svg>',
+            check: '<svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"></path></svg>',
+            heart: '<svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-9.5-9C.6 8.3 2.2 5.2 5.5 4.4c2-.5 4 .3 5 1.8 1-1.5 3-2.3 5-1.8 3.3.8 4.9 3.9 3 7.6C19 16.5 12 21 12 21z"></path></svg>',
+            star: '<svg viewBox="0 0 24 24"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.1L12 17.8 6.4 20.1l1.1-6.1L3 9.6l6.2-.9L12 3z"></path></svg>',
+            cart: '<svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"></circle><circle cx="18" cy="21" r="1"></circle><path d="M3 4h3l2.3 11.5a2 2 0 0 0 2 1.5h6.9a2 2 0 0 0 2-1.5L21 8H7"></path></svg>',
+            trash: '<svg viewBox="0 0 24 24"><path d="M3 6h18"></path><path d="M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2"></path><path d="M6 6l1 14a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-14"></path><path d="M10 11v6M14 11v6"></path></svg>',
+            search: '<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>',
+            sort: '<svg viewBox="0 0 24 24"><path d="M6 7h12M6 12h8M6 17h4"></path></svg>'
+        };
+
+        const CATEGORY_PRIORITY = {
+            'Фигурки': 1,
+            'Игровая техника': 2,
+            'Косплей': 3,
+            'Оружие': 4,
+            'Детали и запчасти': 5,
+            'Интерьер': 6,
+            'Прочее': 7
+        };
+
+        const CATEGORY_THEMES = {
+            'Фигурки': { id: 'figures', accent: '#8d79ff', accent2: '#61d7ff', bg1: '#171037', bg2: '#09111d' },
+            'Игровая техника': { id: 'mecha', accent: '#d8b15a', accent2: '#61d7ff', bg1: '#101828', bg2: '#08101b' },
+            'Косплей': { id: 'cosplay', accent: '#ff7bc8', accent2: '#ffd76e', bg1: '#2a1230', bg2: '#0d1020' },
+            'Оружие': { id: 'weapons', accent: '#ff8b5c', accent2: '#ff4a90', bg1: '#23111b', bg2: '#080d18' },
+            'Детали и запчасти': { id: 'parts', accent: '#7ce7b0', accent2: '#61d7ff', bg1: '#12202a', bg2: '#071018' },
+            'Интерьер': { id: 'interior', accent: '#61d7ff', accent2: '#a38cff', bg1: '#101926', bg2: '#071018' },
+            'Прочее': { id: 'other', accent: '#d8b15a', accent2: '#61d7ff', bg1: '#141826', bg2: '#09111b' }
+        };
+
+        const CATEGORY_ALIASES = {
+            'figures': 'Фигурки',
+            'gaming': 'Игровая техника',
+            'cosplay': 'Косплей',
+            'weapons': 'Оружие',
+            'parts': 'Детали и запчасти',
+            'interior': 'Интерьер',
+            'other': 'Прочее',
+            'figures_en': 'Фигурки',
+            'cosplay_en': 'Косплей',
+            'gaming_en': 'Игровая техника'
+        };
+
+        let products = [];
+        let cart = (() => {
+            try {
+                const raw = JSON.parse(localStorage.getItem('miniapp_cart') || '{}');
+                const out = {};
+                for (const k of Object.keys(raw)) out[k] = cartEntry(raw[k]);
+                return out;
+            } catch { return {}; }
+        })();
+        let currentDetailComplexity = 'base';
+        let favorites = (() => { try { return JSON.parse(localStorage.getItem('miniapp_favs') || '[]'); } catch { return []; } })();
+        let currentCategory = 'all';
+        let favOnly = false;
+        let sortMode = 'popular';
+        let priceMin = 0;
+        let priceMax = 0;
+        let currentDetailId = null;
+        const artCache = new Map();
+
+        const el = (id) => document.getElementById(id);
+        const num = (value) => Number(value || 0);
+        const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
+        const hash = (text) => {
+            let h = 0;
+            for (let i = 0; i < text.length; i++) h = ((h << 5) - h + text.charCodeAt(i)) | 0;
+            return Math.abs(h);
+        };
+        const escapeHtml = (str = '') => String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+        const escapeXml = (str = '') => escapeHtml(str).replace(/\n/g, ' ');
+        const formatRub = (value) => `${Number(value || 0).toLocaleString('ru-RU')} ₽`;
+        const priceParts = (value) => ({ value: Number(value || 0).toLocaleString('ru-RU'), currency: '₽' });
+
+        const COMPLEXITY = [
+            { id: 'base',   label: 'Базовая',   mult: 1.0, hint: 'печать + грунт + базовый цвет' },
+            { id: 'detail', label: 'Детальная', mult: 2.5, hint: 'чистая покраска, проработка мелких деталей' },
+            { id: 'max',    label: 'Макси',     mult: 4.0, hint: 'полная детализация, патина, подставка, блистер' },
+        ];
+        const complexityById = (id) => COMPLEXITY.find(c => c.id === id) || COMPLEXITY[0];
+        const priceFor = (base, complexityId) => Math.round(Number(base || 0) * complexityById(complexityId).mult);
+        function cartEntry(raw) {
+            const value = Number(raw && typeof raw === 'object' ? raw.qty : raw);
+            return { qty: Number.isFinite(value) ? Math.max(1, Math.floor(value)) : 1, complexity: 'base' };
+        }
+        const getRating = (item) => Number(item.rating || 0);
+
+        function categoryName(category) {
+            const raw = (category || 'Прочее').toString().trim();
+            const lower = raw.toLowerCase();
+            if (CATEGORY_THEMES[raw]) return raw;
+            if (lower.includes('фигур')) return 'Фигурки';
+            if (lower.includes('игров') || lower.includes('техник')) return 'Игровая техника';
+            if (lower.includes('косплей') || lower.includes('cosplay')) return 'Косплей';
+            if (lower.includes('оруж')) return 'Оружие';
+            if (lower.includes('детал')) return 'Детали и запчасти';
+            if (lower.includes('интерьер')) return 'Интерьер';
+            if (lower.includes('проч')) return 'Прочее';
+            return raw.charAt(0).toUpperCase() + raw.slice(1);
+        }
+
+        function themeByCategory(category) {
+            return CATEGORY_THEMES[categoryName(category)] || CATEGORY_THEMES['Прочее'];
+        }
+
+        function getShape(themeId, accent, accent2) {
+            if (themeId === 'figures') {
+                return `
+                    <ellipse cx="450" cy="548" rx="176" ry="22" fill="#000" opacity=".30"/>
+                    <circle cx="450" cy="238" r="84" fill="url(#obj)"/>
+                    <path d="M304 468c20-94 84-144 146-144s126 50 146 144v40H304z" fill="url(#obj2)"/>
+                    <path d="M362 242a88 88 0 0 1 176 0c0 38-31 68-88 68s-88-30-88-68z" fill="#fff" fill-opacity=".08"/>
+                `;
+            }
+            if (themeId === 'mecha') {
+                return `
+                    <ellipse cx="450" cy="550" rx="170" ry="24" fill="#000" opacity=".32"/>
+                    <polygon points="450,146 600,234 450,322 300,234" fill="url(#obj)"/>
+                    <polygon points="450,322 600,234 600,392 450,488" fill="${accent2}" fill-opacity=".24"/>
+                    <polygon points="450,322 300,234 300,392 450,488" fill="#fff" fill-opacity=".08"/>
+                    <rect x="360" y="364" width="180" height="84" rx="26" fill="#fff" fill-opacity=".08"/>
+                `;
+            }
+            if (themeId === 'cosplay') {
+                return `
+                    <ellipse cx="450" cy="548" rx="176" ry="22" fill="#000" opacity=".28"/>
+                    <path d="M328 218h244l36 104-36 148H328l-36-148z" fill="url(#obj)"/>
+                    <path d="M374 285h152l-18 44h-116z" fill="#050816" fill-opacity=".28"/>
+                    <path d="M350 206c22-42 58-64 100-64s78 22 100 64" fill="none" stroke="${accent2}" stroke-opacity=".8" stroke-width="18" stroke-linecap="round"/>
+                `;
+            }
+            if (themeId === 'weapons') {
+                return `
+                    <ellipse cx="450" cy="552" rx="174" ry="22" fill="#000" opacity=".28"/>
+                    <path d="M300 418l216-216 76 76-216 216-90 18z" fill="url(#obj)"/>
+                    <path d="M456 262l94 94" stroke="#fff" stroke-opacity=".36" stroke-width="16" stroke-linecap="round"/>
+                    <rect x="236" y="472" width="132" height="42" rx="20" fill="${accent2}" fill-opacity=".2"/>
+                `;
+            }
+            if (themeId === 'parts') {
+                return `
+                    <ellipse cx="450" cy="550" rx="174" ry="22" fill="#000" opacity=".28"/>
+                    <circle cx="450" cy="286" r="116" fill="url(#obj)"/>
+                    <circle cx="450" cy="286" r="56" fill="#071018"/>
+                    <g fill="${accent}">
+                        <rect x="442" y="132" width="16" height="56" rx="8"/>
+                        <rect x="442" y="384" width="16" height="56" rx="8"/>
+                        <rect x="296" y="278" width="56" height="16" rx="8"/>
+                        <rect x="548" y="278" width="56" height="16" rx="8"/>
+                        <rect x="334" y="182" width="16" height="56" rx="8" transform="rotate(-45 342 210)"/>
+                        <rect x="550" y="182" width="16" height="56" rx="8" transform="rotate(45 558 210)"/>
+                        <rect x="334" y="332" width="16" height="56" rx="8" transform="rotate(45 342 360)"/>
+                        <rect x="550" y="332" width="16" height="56" rx="8" transform="rotate(-45 558 360)"/>
+                    </g>
+                `;
+            }
+            if (themeId === 'interior') {
+                return `
+                    <ellipse cx="450" cy="552" rx="176" ry="22" fill="#000" opacity=".28"/>
+                    <path d="M394 160h112l26 72c-18 12-32 34-32 64 0 36 24 48 24 122 0 74-52 108-134 108s-134-34-134-108c0-74 24-86 24-122 0-30-14-52-32-64l26-72h120z" fill="url(#obj)"/>
+                    <path d="M366 280h168" stroke="#fff" stroke-opacity=".22" stroke-width="16" stroke-linecap="round"/>
+                    <path d="M378 202h144" stroke="${accent2}" stroke-opacity=".55" stroke-width="14" stroke-linecap="round"/>
+                `;
+            }
+            return `
+                <ellipse cx="450" cy="548" rx="172" ry="22" fill="#000" opacity=".28"/>
+                <polygon points="450,150 592,232 450,314 308,232" fill="url(#obj)"/>
+                <polygon points="450,314 592,232 592,398 450,482" fill="${accent2}" fill-opacity=".24"/>
+                <polygon points="450,314 308,232 308,398 450,482" fill="#fff" fill-opacity=".08"/>
+            `;
+        }
+
+        function getProductArt(product) {
+            const key = `${product.id}|${product.title}|${product.category}`;
+            if (artCache.has(key)) return artCache.get(key);
+            const theme = themeByCategory(product.category);
+            const seed = hash(key);
+            const driftX = (seed % 30) - 15;
+            const driftY = ((seed >> 4) % 20) - 10;
+            const scale = 0.96 + ((seed >> 8) % 10) / 100;
+            const particleCount = 7;
+            const particles = Array.from({ length: particleCount }, (_, i) => {
+                const x = 90 + ((seed >> (i + 1)) % 520);
+                const y = 92 + ((seed >> (i + 4)) % 340);
+                const r = 3 + ((seed >> (i + 7)) % 6);
+                const op = 0.18 + (((seed >> (i + 10)) % 35) / 100);
+                return `<circle cx="${x}" cy="${y}" r="${r}" fill="#fff" opacity="${op}"/>`;
+            }).join('');
+            const svg = `
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" role="img" aria-hidden="true">
+                    <defs>
+                        <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stop-color="${theme.bg1}"/>
+                            <stop offset="100%" stop-color="${theme.bg2}"/>
+                        </linearGradient>
+                        <radialGradient id="halo" cx="50%" cy="42%" r="64%">
+                            <stop offset="0%" stop-color="${theme.accent}" stop-opacity="0.44"/>
+                            <stop offset="55%" stop-color="${theme.accent2}" stop-opacity="0.18"/>
+                            <stop offset="100%" stop-color="${theme.accent2}" stop-opacity="0"/>
+                        </radialGradient>
+                        <linearGradient id="obj" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stop-color="${theme.accent}"/>
+                            <stop offset="100%" stop-color="${theme.accent2}"/>
+                        </linearGradient>
+                        <linearGradient id="obj2" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.18"/>
+                            <stop offset="100%" stop-color="#ffffff" stop-opacity="0.04"/>
+                        </linearGradient>
+                        <filter id="blur"><feGaussianBlur stdDeviation="24"/></filter>
+                        <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+                            <path d="M60 0H0V60" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+                        </pattern>
+                    </defs>
+                    <rect width="900" height="700" rx="42" fill="url(#bg)"/>
+                    <rect width="900" height="700" rx="42" fill="url(#grid)" opacity="0.18"/>
+                    <circle cx="684" cy="120" r="160" fill="${theme.accent}" opacity="0.16" filter="url(#blur)"/>
+                    <circle cx="220" cy="530" r="220" fill="${theme.accent2}" opacity="0.14" filter="url(#blur)"/>
+                    <circle cx="460" cy="310" r="180" fill="url(#halo)" filter="url(#blur)"/>
+                    <g transform="translate(${driftX}, ${driftY}) scale(${scale}) translate(-20, 0)">
+                        ${getShape(theme.id, theme.accent, theme.accent2)}
+                    </g>
+                    <g>
+                        ${particles}
+                    </g>
+                    <g opacity="0.96">
+                        <rect x="54" y="44" rx="16" width="186" height="42" fill="rgba(255,255,255,0.07)"/>
+                        <text x="76" y="71" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="2" fill="rgba(255,255,255,0.82)">3D PREVIEW</text>
+                        <text x="54" y="620" font-family="Sora, Inter, Arial, sans-serif" font-size="26" font-weight="700" fill="#ffffff">${escapeXml(categoryName(product.category))}</text>
+                        <text x="54" y="654" font-family="Inter, Arial, sans-serif" font-size="16" fill="rgba(255,255,255,0.74)">Неоновый витринный рендер · ${escapeXml(formatRub(product.price))}</text>
+                    </g>
+                </svg>
+            `;
+            const data = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+            artCache.set(key, data);
+            return data;
+        }
+
+        function getProductImage(product) {
+            const url = product.photo_url || product.photo || '';
+            if (url && (url.startsWith('http') || url.startsWith('data:'))) return url;
+            if (url && url.startsWith('/')) {
+                // Relative URL — корректно резолвим относительно страницы
+                const base = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '');
+                return base + url;
+            }
+            // Если есть фото в папке product_photos — показываем его
+            const localUrl = `/product_photos/${product.id}.jpg`;
+            const base = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '');
+            return base + localUrl;
+        }
+
+        function getStars(rating) {
+            return buildStarsMarkup(rating);
+        }
+
+        function debounce(fn, ms) {
+            let timer;
+            return (...args) => {
+                clearTimeout(timer);
+                timer = setTimeout(() => fn(...args), ms);
+            };
+        }
+
+        function handleImageError(img) {
+            const fallback = img.dataset.fallback;
+            if (fallback && img.src !== fallback) {
+                img.src = fallback;
+                img.classList.add('error');
+            }
+        }
+
+        function handleImageLoad(img) {
+            img.classList.remove('loading');
+        }
+
+        function getDemoProducts() {
+            return [
+                { id: 101, title: 'Дракон трёхглавый', category: 'Фигурки', price: 5490, desc: 'Большая коллекционная фигурка с выразительной пластикой и сложной геометрией.', rating: 4.9 },
+                { id: 102, title: 'Танк T-34-85', category: 'Игровая техника', price: 4290, desc: 'Военная модель с детализированной ходовой частью и башней.', rating: 4.8 },
+                { id: 103, title: 'Шлем космодесанта', category: 'Косплей', price: 6490, desc: 'Крупный косплей-элемент с посадкой под реальный размер головы.', rating: 4.9 },
+                { id: 104, title: 'Плазменная винтовка', category: 'Оружие', price: 3890, desc: 'Фантастический пропс с глянцевыми плоскостями и LED-подсветкой.', rating: 4.7 },
+                { id: 105, title: 'Набор шестерён', category: 'Детали и запчасти', price: 1690, desc: 'Механические детали для сборки, макетов и функциональных прототипов.', rating: 4.6 },
+                { id: 106, title: 'Лампа-куб', category: 'Интерьер', price: 2190, desc: 'Минималистичный светильник с мягким рассеянным светом.', rating: 4.6 },
+                { id: 107, title: 'Рыцарь-тамплиер', category: 'Фигурки', price: 4990, desc: 'Фигурка с мощным силуэтом, хорошо смотрится в витрине и под покраску.', rating: 4.8 },
+                { id: 108, title: 'Бронетранспортёр БТР-80', category: 'Игровая техника', price: 4590, desc: 'Реалистичная техника с хорошей читаемостью формы.', rating: 4.7 },
+                { id: 109, title: 'Бюст героя', category: 'Фигурки', price: 2790, desc: 'Классический бюст для подарка, полки или покраски в стиле game art.', rating: 4.7 }
+            ];
+        }
+
+        // Нормализация products.json из GitHub Pages → схема Mini App
+        function normalizeProduct(p) {
+            const stockVal = p.in_stock === true ? (p.stock_count || -1) : (p.in_stock === false ? -1 : (p.stock ?? p.stock_count ?? -1));
+            const rawPhoto = (p.photos && p.photos.length ? p.photos[0] : '') || p.photo_url || p.photo || '';
+            const photoUrl = rawPhoto.replace('/printforge', '');
+            const fallbackPhoto = photoUrl || ('product_photos/' + p.id + '.jpg');
+            return {
+                id: p.id,
+                title: p.title,
+                desc: p.description || p.desc || '',
+                price: p.price,
+                photo: fallbackPhoto,
+                photo_url: fallbackPhoto,
+                category: p.category,
+                rating: p.rating || 0,
+                stock: stockVal
+            };
+        }
+
+        function normalizeProducts(data) {
+            return Array.isArray(data) ? data.map(normalizeProduct) : [];
+        }
+
+        function loadProducts() {
+            // 1. Пытаемся загрузить с API (если работает через serve_webapp.py)
+            const apiBase = window.location.origin;
+            fetch(apiBase + '/api/products')
+                .then(resp => {
+                    if (!resp.ok) throw new Error('No API');
+                    return resp.json();
+                })
+                .then(data => {
+                    if (Array.isArray(data) && data.length) {
+                        products = data;
+                        initUI();
+                        return;
+                    }
+                    throw new Error('Empty API');
+                })
+                .catch(() => {
+                    // 2. Fallback: статичный products.json (GitHub Pages)
+                    fetch('products.json')
+                        .then(resp => {
+                            if (!resp.ok) throw new Error('No products.json');
+                            return resp.json();
+                        })
+                        .then(data => {
+                            const normalized = normalizeProducts(data);
+                            products = normalized.length ? normalized : getDemoProducts();
+                            initUI();
+                        })
+                        .catch(() => {
+                            products = getDemoProducts();
+                            initUI();
+                            showToast('Демо-каталог');
+                        });
+                });
+        }
+
+        function initUI() {
+            el('adminBtn').style.display = isAdmin ? '' : 'none';
+            bindStaticEvents();
+            renderCategories();
+            updateCounters();
+            restoreUserInfo();
+            renderProducts();
+        }
+
+        function bindStaticEvents() {
+            el('searchInput').addEventListener('input', debounce(renderProducts, 160));
+            el('sortSelect').addEventListener('change', (e) => {
+                sortMode = e.target.value;
+                renderProducts();
+            });
+            el('priceMin').addEventListener('input', debounce(() => {
+                priceMin = Number(el('priceMin').value) || 0;
+                renderProducts();
+            }, 200));
+            el('priceMax').addEventListener('input', debounce(() => {
+                priceMax = Number(el('priceMax').value) || 0;
+                renderProducts();
+            }, 200));
+            el('priceClear').addEventListener('click', () => {
+                el('priceMin').value = '';
+                el('priceMax').value = '';
+                priceMin = 0;
+                priceMax = 0;
+                renderProducts();
+            });
+        }
+
+        function renderCategories() {
+            const cats = [...new Set(products.map(p => categoryName(p.category)))]
+                .sort((a, b) => (CATEGORY_PRIORITY[a] || 99) - (CATEGORY_PRIORITY[b] || 99));
+
+            const html = [`<button class="chip ${currentCategory === 'all' ? 'active' : ''}" data-cat="all">Все</button>`]
+                .concat(cats.map(cat => `<button class="chip ${currentCategory === cat ? 'active' : ''}" data-cat="${escapeHtml(cat)}">${escapeHtml(cat)}</button>`))
+                .join('');
+            el('categories').innerHTML = html;
+
+            el('categories').querySelectorAll('.chip').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    currentCategory = btn.dataset.cat;
+                    favOnly = false;
+                    el('favMode').style.display = 'none';
+                    el('favBtn').classList.remove('active');
+                    renderCategories();
+                    renderProducts();
+                });
+            });
+        }
+
+        function visibleBaseProducts() {
+            const query = el('searchInput').value.trim().toLowerCase();
+            let list = products.slice();
+            if (currentCategory !== 'all') {
+                list = list.filter(p => categoryName(p.category) === currentCategory);
+            }
+            if (favOnly) list = list.filter(p => favorites.includes(p.id));
+            if (priceMin > 0) list = list.filter(p => num(p.price) >= priceMin);
+            if (priceMax > 0) list = list.filter(p => num(p.price) <= priceMax);
+            if (query) {
+                list = list.filter(p => {
+                    const hay = `${p.title || ''} ${p.desc || ''} ${p.category || ''}`.toLowerCase();
+                    return hay.includes(query);
+                });
+            }
+            return list;
+        }
+
+        function sortProducts(list) {
+            const sorted = list.slice();
+            switch (sortMode) {
+                case 'price_asc':
+                    return sorted.sort((a, b) => num(a.price) - num(b.price));
+                case 'price_desc':
+                    return sorted.sort((a, b) => num(b.price) - num(a.price));
+                case 'rating':
+                    return sorted.sort((a, b) => getRating(b) - getRating(a) || num(b.price) - num(a.price));
+                case 'title':
+                    return sorted.sort((a, b) => String(a.title || '').localeCompare(String(b.title || ''), 'ru'));
+                default:
+                    return sorted.sort((a, b) => getRating(b) - getRating(a) || num(b.price) - num(a.price) || String(a.title || '').localeCompare(String(b.title || ''), 'ru'));
+            }
+        }
+
+        function pickHeroProduct(list) {
+            const source = (list && list.length ? list : products).slice();
+            return source.sort((a, b) => getRating(b) - getRating(a) || num(b.price) - num(a.price))[0] || null;
+        }
+
+        function updateHero(list) {
+            const product = pickHeroProduct(list);
+            if (!product) return;
+            const imgSrc = getProductImage(product);
+            const fallbackSrc = getProductArt(product);
+            const heroImg = el('heroPreview');
+            if (heroImg && heroImg.tagName === 'IMG') {
+                heroImg.src = imgSrc;
+                heroImg.alt = product.title || 'Модель';
+                heroImg.dataset.fallback = fallbackSrc;
+                heroImg.onerror = () => handleImageError(heroImg);
+                heroImg.onload = () => handleImageLoad(heroImg);
+            }
+            el('heroCat').textContent = categoryName(product.category);
+            el('heroTitle').textContent = product.title || 'Модель из каталога';
+            el('heroPrice').textContent = formatRub(product.price);
+        }
+
+        function updateCounters() {
+            const visibleCount = visibleBaseProducts().length;
+            const totalCount = products.length;
+            const categoriesCount = new Set(products.map(p => categoryName(p.category))).size;
+            const averageRating = products.length ? (products.reduce((s, p) => s + getRating(p), 0) / products.length) : 0;
+            const cartCount = Object.values(cart).reduce((a, b) => a + cartEntry(b).qty, 0);
+            const favCount = favorites.length;
+
+            el('productCount').textContent = visibleCount;
+            el('catalogCount').textContent = totalCount;
+            el('heroModels').textContent = totalCount;
+            el('heroCategories').textContent = categoriesCount;
+            el('heroRating').textContent = averageRating ? averageRating.toFixed(1) : '—';
+            el('heroMiniCount').textContent = totalCount;
+            el('heroMiniFavs').textContent = favCount;
+            el('heroMiniCart').textContent = cartCount;
+            el('cartBadge').textContent = cartCount;
+            el('cartBadge').classList.toggle('hidden', cartCount === 0);
+        }
+
+        function renderProducts() {
+            const list = sortProducts(visibleBaseProducts());
+            updateCounters();
+            updateHero(list);
+
+            const container = el('products');
+            if (!list.length) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+                        </div>
+                        <h3>Каталог пуст</h3>
+                        <p>Попробуй изменить поиск или включить другую категорию.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = list.map((p, index) => {
+                const inCart = !!cart[p.id];
+                const isFav = favorites.includes(p.id);
+                const cat = categoryName(p.category);
+                const imgSrc = getProductImage(p);
+                const fallbackSrc = getProductArt(p);
+                const pp = priceParts(p.price);
+                const stockClass = (p.stock == null || p.stock < 0) ? 'order' : (p.stock > 0 ? 'in' : 'out');
+                const stockLabel = stockClass === 'order' ? 'Под заказ' : (stockClass === 'in' ? 'В наличии' : 'Нет в наличии');
+                return `
+                    <article class="product-card ${index === 0 ? 'featured' : ''}" onclick="openDetail(${p.id})" style="animation-delay:${(index % 8) * 0.025}s">
+                        <div class="product-media">
+                            <img class="product-art loading" src="${imgSrc}" alt="${escapeHtml(p.title || 'Модель')}" loading="lazy" data-fallback="${escapeHtml(fallbackSrc)}" onerror="handleImageError(this)" onload="handleImageLoad(this)">
+                            <div class="media-badge">${escapeHtml(cat)}</div>
+                            <div class="stock-badge ${stockClass}">${escapeHtml(stockLabel)}</div>
+                            <button class="fav-btn ${isFav ? 'active' : ''}" onclick="event.stopPropagation(); toggleFav(${p.id})" aria-label="Избранное">
+                                ${ICONS.heart}
+                            </button>
+                        </div>
+                        <div class="product-body">
+                            <h3 class="product-title">${escapeHtml(p.title || 'Без названия')}</h3>
+                            <div class="price-block">
+                                <span class="price-value">${escapeHtml(pp.value)}</span>
+                                <span class="price-currency">${escapeHtml(pp.currency)}</span>
+                                <span class="price-unit">за модель</span>
+                            </div>
+                            <p class="product-desc">${escapeHtml(p.desc || 'Качественная 3D-модель под печать и покраску.')}</p>
+                            <div class="product-meta">
+                                <div class="rating-chip">
+                                    ${ICONS.star}
+                                    <span>${getRating(p).toFixed(1)}</span>
+                                </div>
+                                <button class="add-btn ${inCart ? 'in-cart' : ''}" onclick="event.stopPropagation(); addToCart(${p.id})" aria-label="В корзину">
+                                    ${inCart ? ICONS.check + '<span>В корзине</span>' : ICONS.plus + '<span>В корзину</span>'}
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+        }
+
+        function tgHaptic() {
+            try { WebApp.HapticFeedback?.impactOccurred?.('medium'); } catch (e) {}
+        }
+
+        function tgBack(show, onHide) {
+            try {
+                if (show) {
+                    WebApp.BackButton?.show();
+                    WebApp.BackButton?.onClick(onHide);
+                } else {
+                    WebApp.BackButton?.hide();
+                }
+            } catch (e) {}
+        }
+
+        function openDetail(id) {
+            const p = products.find(x => x.id === id);
+            if (!p) return;
+            currentDetailId = id;
+            currentDetailComplexity = (cart[id] && cart[id].complexity) || 'base';
+            const cat = categoryName(p.category);
+            const isFav = favorites.includes(p.id);
+            const inCart = !!cart[p.id];
+            const rating = getRating(p);
+            const imgSrc = getProductImage(p);
+            const fallbackSrc = getProductArt(p);
+            const basePrice = num(p.price);
+            const priceForLevel = (cId) => priceFor(basePrice, cId);
+            const complexityChips = COMPLEXITY.map(c => {
+                const active = c.id === currentDetailComplexity;
+                return `<button type="button" class="complexity-chip ${active ? 'active' : ''}" data-cid="${c.id}" onclick="pickDetailComplexity('${c.id}')">
+                    <span class="chip-label">${escapeHtml(c.label)}</span>
+                    <span class="chip-price">${escapeHtml(formatRub(priceForLevel(c.id)))}</span>
+                </button>`;
+            }).join('');
+
+            el('detailContent').innerHTML = `
+                <div class="detail-layout">
+                    <div class="detail-art">
+                        <img src="${imgSrc}" alt="${escapeHtml(p.title || 'Модель')}" loading="lazy" data-fallback="${escapeHtml(fallbackSrc)}" onerror="handleImageError(this)" onload="handleImageLoad(this)">
+                    </div>
+                    <div class="detail-cat">${escapeHtml(cat)}</div>
+                    <div>
+                        <h3 class="detail-title">${escapeHtml(p.title || 'Без названия')}</h3>
+                        <div class="detail-price" id="detailPrice">${escapeHtml(formatRub(priceForLevel(currentDetailComplexity)))}</div>
+                        <div class="detail-price-hint" id="detailPriceHint">${escapeHtml(complexityById(currentDetailComplexity).hint)}</div>
+                    </div>
+                    <p class="detail-desc">${escapeHtml(p.desc || 'Качественная 3D-модель под печать, покраску и коллекционную витрину.')}</p>
+                    <div class="complexity-selector" id="detailComplexitySelector">${complexityChips}</div>
+                    <div class="detail-rating">
+                        ${getStars(rating)}
+                        <span>${rating.toFixed(1)} / 5</span>
+                    </div>
+                    <div class="detail-grid">
+                        <div class="spec"><span>Тип</span><strong>${escapeHtml(cat)}</strong></div>
+                        <div class="spec"><span>Материал</span><strong>SLA / FDM / Resin</strong></div>
+                        <div class="spec"><span>Товар</span><strong>Физическая модель, не STL-файл</strong></div>
+                        <div class="spec"><span>Наличие</span><strong>${p.stock === undefined || p.stock < 0 ? 'под заказ' : p.stock > 0 ? `в наличии: ${p.stock} шт.` : 'нет'}</strong></div>
+                        <div class="spec"><span>Опции</span><strong>Под покраску и сборку</strong></div>
+                    </div>
+                    <div class="detail-actions">
+                        <button class="primary-btn" onclick="addDetailToCart()">${inCart ? 'Добавить ещё' : 'В корзину'}</button>
+                        ${isAdmin ? `
+                        <button class="secondary-btn" onclick="deleteProduct(${p.id});">🗑 Удалить</button>
+                        <button class="secondary-btn" onclick="editProduct(${p.id});">✏️ Редактировать</button>
+                        ` : `
+                        <button class="secondary-btn" onclick="orderProduct(${p.id});">🔗 Заказать в боте</button>
+                        `}
+                    </div>
+                </div>
+            `;
+            el('detailOverlay').classList.add('open');
+            el('detailSheet').classList.add('open');
+            tgBack(true, closeDetail);
+        }
+
+        function pickDetailComplexity(cid) {
+            if (!currentDetailId) return;
+            currentDetailComplexity = cid;
+            const sel = el('detailComplexitySelector');
+            if (sel) {
+                sel.querySelectorAll('.complexity-chip').forEach(chip => {
+                    chip.classList.toggle('active', chip.dataset.cid === cid);
+                });
+            }
+            const p = products.find(x => x.id === currentDetailId);
+            if (!p) return;
+            const newPrice = formatRub(priceFor(num(p.price), cid));
+            const priceEl = el('detailPrice');
+            const hintEl = el('detailPriceHint');
+            if (priceEl) priceEl.textContent = newPrice;
+            if (hintEl) hintEl.textContent = complexityById(cid).hint;
+            tgHaptic();
+        }
+
+        function addDetailToCart() {
+            if (!currentDetailId) return;
+            const id = currentDetailId;
+            const entry = cart[id] || { qty: 0, complexity: 'base' };
+            entry.qty += 1;
+            entry.complexity = currentDetailComplexity;
+            cart[id] = entry;
+            saveCart();
+            closeDetail();
+            showToast('Добавлено в корзину');
+        }
+
+        function closeDetail() {
+            currentDetailId = null;
+            el('detailOverlay').classList.remove('open');
+            el('detailSheet').classList.remove('open');
+            tgBack(false);
+        }
+
+        function addToCart(id) {
+            tgHaptic();
+            const entry = cart[id] || { qty: 0, complexity: 'base' };
+            entry.qty += 1;
+            cart[id] = entry;
+            saveCart();
+            showToast('Добавлено в корзину');
+        }
+
+        function removeFromCart(id) {
+            delete cart[id];
+            saveCart();
+            if (!Object.keys(cart).length) closeCart();
+        }
+
+        function changeQty(id, delta) {
+            const entry = cart[id] || { qty: 0, complexity: 'base' };
+            entry.qty += delta;
+            if (entry.qty <= 0) {
+                delete cart[id];
+            } else {
+                cart[id] = entry;
+            }
+            saveCart();
+        }
+
+        function setCartComplexity(id, complexityId) {
+            const entry = cart[id] || { qty: 1, complexity: 'base' };
+            entry.complexity = complexityId || 'base';
+            cart[id] = entry;
+            saveCart();
+        }
+
+        function saveCart() {
+            localStorage.setItem('miniapp_cart', JSON.stringify(cart));
+            updateCounters();
+            renderProducts();
+            if (el('cartSheet').classList.contains('open')) renderCart();
+        }
+
+        function updateFavButtonState() {
+            el('favBtn').classList.toggle('active', favOnly);
+        }
+
+        function openCart() {
+            renderCart();
+            el('cartOverlay').classList.add('open');
+            el('cartSheet').classList.add('open');
+            tgBack(true, closeCart);
+        }
+
+        function closeCart() {
+            el('cartOverlay').classList.remove('open');
+            el('cartSheet').classList.remove('open');
+            tgBack(false);
+        }
+
+        function renderCart() {
+            const container = el('cartContent');
+            const ids = Object.keys(cart);
+            if (!ids.length) {
+                container.innerHTML = `
+                    <div class="empty-state" style="padding:52px 20px;">
+                        <div class="empty-icon">
+                            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+                        </div>
+                        <h3>Корзина пуста</h3>
+                        <p>Добавь модели из каталога — и можно оформлять заказ.</p>
+                        <div style="height:14px"></div>
+                        <button class="continue-btn" onclick="closeCart()">Продолжить покупки</button>
+                    </div>
+                `;
+                return;
+            }
+
+            let subtotal = 0;
+            const itemsHtml = ids.map(id => {
+                const p = products.find(x => x.id === Number(id));
+                if (!p) return '';
+                const entry = cartEntry(cart[id]);
+                const qty = entry.qty;
+                const cId = entry.complexity;
+                const linePrice = priceFor(num(p.price), cId);
+                const lineTotal = linePrice * qty;
+                subtotal += lineTotal;
+                const imgSrc = getProductImage(p);
+                const fallbackSrc = getProductArt(p);
+                const complexityChips = COMPLEXITY.map(c => `
+                    <button type="button" class="mini-complexity-chip ${c.id === cId ? 'active' : ''}"
+                        onclick="setCartComplexity(${p.id}, '${c.id}'); openCart();">
+                        ${escapeHtml(c.label)}
+                    </button>
+                `).join('');
+                return `
+                    <div class="cart-item">
+                        <div class="cart-thumb"><img src="${imgSrc}" alt="${escapeHtml(p.title || 'Модель')}" loading="lazy" data-fallback="${escapeHtml(fallbackSrc)}" onerror="handleImageError(this)" onload="handleImageLoad(this)"></div>
+                        <div>
+                            <h4 class="cart-item-title">${escapeHtml(p.title || 'Без названия')}</h4>
+                            <div class="cart-item-price">${escapeHtml(formatRub(linePrice))} × ${qty} = <strong>${escapeHtml(formatRub(lineTotal))}</strong></div>
+                            <div class="cart-complexity">${complexityChips}</div>
+                            <div class="qty">
+                                <button onclick="changeQty(${p.id}, -1)" aria-label="Минус">${ICONS.minus || '<svg viewBox="0 0 24 24"><path d="M5 12h14"></path></svg>'}</button>
+                                <strong>${qty}</strong>
+                                <button onclick="changeQty(${p.id}, 1)" aria-label="Плюс">${ICONS.plus}</button>
+                            </div>
+                        </div>
+                        <div class="cart-right">
+                            <button class="remove-btn" onclick="removeFromCart(${p.id})" aria-label="Удалить">${ICONS.trash}</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            const delivery = subtotal >= 3000 ? 0 : 300;
+            const total = subtotal + delivery;
+
+            container.innerHTML = `
+                <div class="cart-list">${itemsHtml}</div>
+                <div class="summary">
+                    <div class="summary-row"><span>Подытог</span><span>${escapeHtml(formatRub(subtotal))}</span></div>
+                    <div class="summary-row"><span>Доставка</span><span>${delivery === 0 ? 'Бесплатно' : escapeHtml(formatRub(delivery))}</span></div>
+                    ${delivery > 0 ? '<div style="color: var(--muted-2); font-size: 12px;">Бесплатная доставка от 3 000 ₽</div>' : ''}
+                    <div class="summary-total"><span>Итого</span><strong>${escapeHtml(formatRub(total))}</strong></div>
+                </div>
+                <div class="checkout-actions">
+                    <button class="checkout-btn" onclick="openOrder()">Оформить заказ</button>
+                    <button class="continue-btn" onclick="closeCart()">Продолжить покупки</button>
+                </div>
+            `;
+        }
+
+        function openOrder() {
+            tgHaptic();
+            closeCart();
+            const ids = Object.keys(cart);
+            if (!ids.length) return;
+            let subtotal = 0;
+            const rows = ids.map(id => {
+                const p = products.find(x => x.id === Number(id));
+                if (!p) return '';
+                const entry = cartEntry(cart[id]);
+                const qty = entry.qty;
+                const cId = entry.complexity;
+                const cLabel = complexityById(cId).label;
+                const linePrice = priceFor(num(p.price), cId);
+                const lineTotal = linePrice * qty;
+                subtotal += lineTotal;
+                return `<div class="order-summary-row"><span>${escapeHtml(p.title || 'Модель')} <em style="color: var(--accent); font-style: normal;">· ${escapeHtml(cLabel)}</em> × ${qty}</span><span>${escapeHtml(formatRub(lineTotal))}</span></div>`;
+            }).join('');
+            const delivery = subtotal >= 3000 ? 0 : 300;
+            const total = subtotal + delivery;
+
+            el('orderSummary').innerHTML = `
+                ${rows}
+                <div class="order-summary-row"><span>Доставка</span><span>${delivery === 0 ? 'Бесплатно' : escapeHtml(formatRub(delivery))}</span></div>
+                <div class="order-summary-total"><span>Итого</span><strong>${escapeHtml(formatRub(total))}</strong></div>
+            `;
+
+            el('orderOverlay').classList.add('open');
+            el('orderSheet').classList.add('open');
+            tgBack(true, closeOrder);
+        }
+
+        function closeOrder() {
+            el('orderOverlay').classList.remove('open');
+            el('orderSheet').classList.remove('open');
+            tgBack(false);
+        }
+
+        function toggleFav(id) {
+            tgHaptic();
+            const idx = favorites.indexOf(id);
+            if (idx === -1) {
+                favorites.push(id);
+                showToast('Добавлено в избранное');
+            } else {
+                favorites.splice(idx, 1);
+                showToast('Удалено из избранного');
+            }
+            localStorage.setItem('miniapp_favs', JSON.stringify(favorites));
+            updateCounters();
+            updateFavButtonState();
+            renderCategories();
+            renderProducts();
+            if (currentDetailId === id) openDetail(id);
+        }
+
+        function toggleFavView() {
+            favOnly = !favOnly;
+            if (favOnly) currentCategory = 'all';
+            el('favMode').style.display = favOnly ? 'inline-flex' : 'none';
+            updateFavButtonState();
+            renderCategories();
+            renderProducts();
+            showToast(favOnly ? 'Показываем избранное' : 'Показан весь каталог');
+        }
+
+        function closeSuccess() {
+            el('successOverlay').classList.remove('open');
+            renderProducts();
+        }
+
+        function showToast(text) {
+            const t = el('toast');
+            t.textContent = text;
+            t.style.display = 'block';
+            clearTimeout(t._hide);
+            t._hide = setTimeout(() => { t.style.display = 'none'; }, 1900);
+        }
+
+        function restoreUserInfo() {
+            const savedName = localStorage.getItem('miniapp_name');
+            const savedPhone = localStorage.getItem('miniapp_phone');
+            const savedContact = localStorage.getItem('miniapp_contact');
+            if (savedName) el('inputName').value = savedName;
+            if (savedPhone) el('inputPhone').value = savedPhone;
+            if (savedContact) el('inputContact').value = savedContact;
+        }
+
+        function scrollToCatalog() {
+            el('products').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function buildStarsMarkup(rating) {
+            const value = clamp(Number(rating || 0), 0, 5);
+            const full = Math.floor(value);
+            const half = value - full >= 0.5;
+            let out = '';
+            for (let i = 0; i < 5; i++) {
+                if (i < full) out += ICONS.star;
+                else if (i === full && half) out += `<span style="width:14px;height:14px;display:inline-block;opacity:.86;">${ICONS.star}</span>`;
+                else out += `<span style="width:14px;height:14px;display:inline-block;opacity:.18;">${ICONS.star}</span>`;
+            }
+            return out;
+        }
+
+        el('submitOrderBtn').addEventListener('click', () => {
+            const name = el('inputName').value.trim();
+            const phone = el('inputPhone').value.trim();
+            const contact = el('inputContact').value.trim();
+            const material = el('inputMaterial').value;
+            const color = el('inputColor').value;
+            const comment = el('inputComment').value.trim();
+
+            if (!name) return showToast('Укажи имя');
+            if (!phone) return showToast('Укажи телефон');
+            if (!contact) return showToast('Укажи контакт');
+
+            const items = Object.keys(cart).map(id => {
+                const p = products.find(x => x.id === Number(id));
+                if (!p) return null;
+                const entry = cartEntry(cart[id]);
+                const linePrice = priceFor(num(p.price), entry.complexity);
+                return { id: p.id, title: p.title, price: linePrice, qty: entry.qty, complexity: entry.complexity };
+            }).filter(Boolean);
+
+            if (!items.length) return showToast('Корзина пуста');
+
+            const subtotal = items.reduce((sum, item) => sum + item.price * item.qty, 0);
+            const deliveryFee = subtotal >= 3000 ? 0 : 300;
+            const total = subtotal + deliveryFee;
+
+            const orderData = JSON.stringify({
+                type: 'order',
+                items,
+                name,
+                phone,
+                contact,
+                material,
+                color,
+                comment,
+                subtotal,
+                delivery_fee: deliveryFee,
+                total,
+                delivery: 'Telegram'
+            });
+
+            try {
+                if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.sendData) {
+                    WebApp.sendData(orderData);
+                } else {
+                    fetch(window.location.origin + '/api/order', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: orderData,
+                    });
+                }
+                localStorage.setItem('miniapp_name', name);
+                localStorage.setItem('miniapp_phone', phone);
+                localStorage.setItem('miniapp_contact', contact);
+                cart = {};
+                saveCart();
+                closeOrder();
+                el('successOverlay').classList.add('open');
+            } catch (e) {
+                console.error(e);
+                showToast('Не удалось отправить заказ');
+            }
+        });
+
+        updateFavButtonState();
+        updateCounters();
+        loadProducts();
+
+        function deleteProduct(id) {
+            if (!isAdmin) return showToast('Только администратор');
+            if (!confirm('Удалить этот товар?')) return;
+            const apiBase = window.location.origin;
+            fetch(apiBase + '/api/products/' + id, { method: 'DELETE' })
+                .then(r => r.json())
+                .then(d => {
+                    if (d.ok) {
+                        showToast('Товар удалён');
+                        products = products.filter(p => p.id !== id);
+                        renderProducts();
+                        closeDetail();
+                    } else {
+                        showToast('Ошибка удаления');
+                    }
+                })
+                .catch(() => showToast('Ошибка сети'));
+        }
+
+        function editProduct(id) {
+            const botUsername = 'Jarvisvetogorbot';
+            window.open(`https://t.me/${botUsername}?start=edit_${id}`, '_blank');
+        }
+
+        function orderProduct(id) {
+            const botUsername = 'Jarvisvetogorbot';
+            window.open(`https://t.me/${botUsername}?start=order_${id}`, '_blank');
+        }
+
+        function showAdminDashboard() {
+            el('dashOverlay').classList.add('open');
+            el('dashSheet').classList.add('open');
+            el('dashContent').innerHTML = '<div class="loading-spinner"></div>';
+            el('dashOverlay').onclick = closeDashboard;
+            fetchStats();
+        }
+
+        function closeDashboard() {
+            el('dashOverlay').classList.remove('open');
+            el('dashSheet').classList.remove('open');
+        }
+
+        function fetchStats() {
+            const apiBase = window.location.origin;
+            fetch(apiBase + '/api/stats')
+                .then(r => r.json())
+                .then(d => {
+                    el('dashContent').innerHTML = `
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px 0;">
+                            <div class="stat-card"><strong>${d.total_orders}</strong><span>Всего заказов</span></div>
+                            <div class="stat-card"><strong>${d.new_orders}</strong><span>Новых</span></div>
+                            <div class="stat-card"><strong>${d.week_orders}</strong><span>За 7 дней</span></div>
+                            <div class="stat-card"><strong>${d.total_products}</strong><span>Товаров</span></div>
+                        </div>
+                        <div style="font-size:15px;padding:8px 0 12px;border-bottom:1px solid var(--border);margin-bottom:12px;">
+                            💰 Выручка: <strong>${Number(d.total_revenue).toLocaleString('ru-RU')} ₽</strong>
+                        </div>
+                        <h3 style="font-size:14px;margin:0 0 8px;color:rgba(255,255,255,0.6);">Заказы по дням (30 дней)</h3>
+                        ${(d.orders_by_day || []).map(o => `
+                            <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px;border-bottom:1px solid rgba(255,255,255,0.05);">
+                                <span style="color:rgba(255,255,255,0.5);">${o.date}</span>
+                                <span>${o.count}</span>
+                            </div>
+                        `).join('') || '<span style="color:rgba(255,255,255,0.3);font-size:13px;">Нет данных</span>'}
+                    `;
+                })
+                .catch(() => {
+                    el('dashContent').innerHTML = '<span style="color:#e74c3c;">Ошибка загрузки статистики</span>';
+                });
+        }
+    
