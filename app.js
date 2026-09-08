@@ -111,7 +111,9 @@
         const priceFor = (base, complexityId) => Math.round(Number(base || 0) * complexityById(complexityId).mult);
         function cartEntry(raw) {
             const value = Number(raw && typeof raw === 'object' ? raw.qty : raw);
-            return { qty: Number.isFinite(value) ? Math.max(1, Math.floor(value)) : 1, complexity: 'base' };
+            const stored = raw && typeof raw === 'object' ? raw.complexity : null;
+            const complexity = COMPLEXITY.some(c => c.id === stored) ? stored : 'base';
+            return { qty: Number.isFinite(value) ? Math.max(1, Math.floor(value)) : 1, complexity };
         }
         const getRating = (item) => Number(item.rating || 0);
 
