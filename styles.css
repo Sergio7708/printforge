@@ -1460,7 +1460,8 @@
         button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid #d8b15a; outline-offset: 3px; }
         .detail-price-hint { line-height: 1.5; }
         @media (max-width: 760px) {
-            .hero-stage { display: none !important; }
+            .hero-stage { display: block !important; margin-top: 16px; }
+            model-viewer.hero-preview { display: block; height: 340px; width: 100%; }
             .hero { display: block !important; }
             .hero-copy { padding: 18px !important; }
             .hero-title { font-size: 28px !important; }
