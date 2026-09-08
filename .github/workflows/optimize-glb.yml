@@ -1,0 +1,28 @@
+name: Optimize GLB (non-destructive)
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  optimize:
+    name: Attempt GLB optimization
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Make scripts executable
+        run: chmod +x scripts/optimize_glb.sh || true
+
+      - name: Run optimize script
+        run: ./scripts/optimize_glb.sh || true
+
+      - name: Upload optimized artifacts (if any)
+        uses: actions/upload-artifact@v4
+        with:
+          name: optimized-glb
+          path: optimized
+          if-no-files-found: ignore
